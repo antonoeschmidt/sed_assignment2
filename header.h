@@ -30,4 +30,6 @@ public:
     int getStock();
     int getRentalFee();
     bool isBorrowed();
+
+    void setIsBorrowed(bool _isBorrowed);
 };
