@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
     cout << it.getId() << endl;
     cout << "isBorrowed: " << boolalpha <<it.isBorrowed() << endl;
     it.setIsBorrowed(true);
-    cout << "isBorrowed: " << boolalpha<< it.isBorrowed() << endl;
+    cout << "isBorrowed: " << boolalpha << it.isBorrowed() << endl;
 
     return 0;
 }
