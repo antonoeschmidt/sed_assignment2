@@ -14,6 +14,18 @@ Item::Item(string _id, string _title, string _rentalType, int _stock, int _renta
     this->borrowed = _borrowed;
 }
 
+string Item::getId() { return id; }
+string Item::getTitle() { return title; }
+string Item::getRentalType() { return rentalType; }
+int Item::getStock() { return stock; }
+int Item::getRentalFee() { return rentalFee; }
+bool Item::isBorrowed() { return borrowed; }
+
+// void Item::setIsBorrowed(bool _isBorrowed)
+// {
+//     this->isBorrowed = _isBorrowed;
+// }
+
 int main(int argc, char const *argv[])
 {
 
