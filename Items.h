@@ -15,24 +15,24 @@ private:
 
 public:
     Item();
-    Item(string _id, string _title, string _loanType, int _stock, int _rentalFee, bool _borrowed);
+    Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed);
     ~Item() { ; }
 
     string getId();
-    void setId(string _id);
+    void setId(string id);
     string getTitle();
-    void setTitle(string _title);
+    void setTitle(string title);
     string getLoanType();
-    void setLoanType(string _loanType);
+    void setLoanType(string loanType);
     int getStock();
-    void setStock(int _stock);
+    void setStock(int stock);
     float getRentalFee();
-    void setRentalFee(float _rentalFee);
+    void setRentalFee(float rentalFee);
     bool getBorrowed();
-    void setBorrowed(bool _borrowed);
+    void setBorrowed(bool borrowed);
 };
 
-void setIsBorrowed(bool _isBorrowed);
+void setIsBorrowed(bool isBorrowed);
 
 class DVD : public Item
 {
@@ -41,7 +41,7 @@ private:
 
 public:
     DVD();
-    DVD(string _id, string _title, string _loanType, int _stock, int _rentalFee, bool _borrowed, string genre);
+    DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre);
 };
 
 #endif
