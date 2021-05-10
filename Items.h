@@ -1,3 +1,4 @@
+// Used to being able to include header in another header
 #ifndef ITEMS_H_
 #define ITEMS_H_
 
