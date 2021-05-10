@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     Item it("123", "hej", "book", 1, 100, false);
 
     cout << it.getId() << endl;
-    cout << "isBorrowed: " << boolalpha <<it.isBorrowed() << endl;
+    cout << "isBorrowed: " << boolalpha << it.isBorrowed() << endl;
     it.setIsBorrowed(true);
     cout << "isBorrowed: " << boolalpha << it.isBorrowed() << endl;
 
