@@ -1,3 +1,6 @@
+#ifndef ITEMS_H_
+#define ITEMS_H_
+
 #include <string>
 
 using namespace std;
@@ -13,7 +16,6 @@ public:
     Item();
     Item(string _id, string _title, string _rentalType, int _stock, int _rentalFee, bool _isBorrowed);
     // ~Item();
-
     string getId();
     string getTitle();
     string getRentalType();
@@ -24,3 +26,5 @@ public:
 
     void setIsBorrowed(bool _isBorrowed);
 };
+
+#endif

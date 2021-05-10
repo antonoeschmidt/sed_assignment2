@@ -32,16 +32,31 @@ Customer::Customer(string id, string name, string address, string phone)
     this->address = address;
     this->phone = phone;
 }
+string Customer::getId() { return id; }
+string Customer::getName() { return name; }
+string Customer::getAddress() { return address; }
+string Customer::getPhone() { return phone; }
+Item* Customer::getItem() { return testItem; }
+void Customer::setItem(Item *item)
+{
+    this->testItem = item;
+}
 
 int main(int argc, char const *argv[])
 {
 
-    Item it("123", "hej", "book", 1, 100, false);
+    // Items
+    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
+    cout << item1->getId() << endl;
+    cout << "isBorrowed: " << boolalpha << item1->isBorrowed() << endl;
+    item1->setIsBorrowed(true);
+    cout << "isBorrowed: " << boolalpha << item1->isBorrowed() << endl;
 
-    cout << it.getId() << endl;
-    cout << "isBorrowed: " << boolalpha << it.isBorrowed() << endl;
-    it.setIsBorrowed(true);
-    cout << "isBorrowed: " << boolalpha << it.isBorrowed() << endl;
+    // Customers
+    Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
+    cus1->setItem(item1);
+    Item *item2 = cus1->getItem();
+    cout << item2->getTitle() << endl;
 
     return 0;
 }
