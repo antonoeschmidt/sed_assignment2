@@ -1,29 +1,36 @@
 #include <iostream>
 #include <string>
-#include "header.h"
+#include "Customers.h"
+#include "Items.h"
 
 using namespace std;
 
-Item::Item(string _id, string _title, string _rentalType, int _stock, int _rentalFee, bool _borrowed)
+Item::Item(string id, string title, string rentalType, int stock, int rentalFee, bool borrowed)
 {
-    this->id = _id;
-    this->title = _title;
-    this->rentalType = _rentalType;
-    this->stock = _stock;
-    this->rentalFee = _rentalFee;
-    this->borrowed = _borrowed;
+    this->id = id;
+    this->title = title;
+    this->rentalType = rentalType;
+    this->stock = stock;
+    this->rentalFee = rentalFee;
+    this->borrowed = borrowed;
 }
-
 string Item::getId() { return id; }
 string Item::getTitle() { return title; }
 string Item::getRentalType() { return rentalType; }
 int Item::getStock() { return stock; }
 int Item::getRentalFee() { return rentalFee; }
 bool Item::isBorrowed() { return borrowed; }
-
-void Item::setIsBorrowed(bool _isBorrowed)
+void Item::setIsBorrowed(bool isBorrowed)
 {
-    this->borrowed = _isBorrowed;
+    this->borrowed = isBorrowed;
+}
+
+Customer::Customer(string id, string name, string address, string phone)
+{
+    this->id = id;
+    this->name = name;
+    this->address = address;
+    this->phone = phone;
 }
 
 int main(int argc, char const *argv[])

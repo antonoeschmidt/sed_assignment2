@@ -2,15 +2,6 @@
 
 using namespace std;
 
-class Customer
-{
-    private:
-    string ID, Name, Address, Phone;
-    public:
-    Customer();
-    ~Customer();
-};
-    
 class Item
 {
 private:
