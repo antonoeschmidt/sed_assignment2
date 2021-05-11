@@ -87,24 +87,6 @@ Guest::Guest(string id, string name, string address, string phone)
 bool Guest::isGuest() { return guest; }
 int Guest::getMaxRental() { return maxRental; }
 
-void Menu()
-{
-    cout << "Welcome to Oggy's video store" << endl;
-    cout << "Enter an option below." << endl;
-    cout << "1. Add a new item, update or delete an existing item" << endl;
-    cout << "2. Add new customer or update an existing customer" << endl;
-    cout << "3. Promote an existing customer" << endl;
-    cout << "4. Rent an item" << endl;
-    cout << "5. Return an item" << endl;
-    cout << "6. Display all items" << endl;
-    cout << "7. Display out-of-stock items" << endl;
-    cout << "8. Display all customers" << endl;
-    cout << "9. Display group of customers" << endl;
-    cout << "10. Search items or customers" << endl;
-    cout << "Exit" << endl;
-    input();
-}
-
 void input()
 {
     string choice;
@@ -147,6 +129,25 @@ void input()
         cerr << "Invalid Input";
     }
 }
+
+void Menu()
+{
+    cout << "Welcome to Oggy's video store" << endl;
+    cout << "Enter an option below." << endl;
+    cout << "1. Add a new item, update or delete an existing item" << endl;
+    cout << "2. Add new customer or update an existing customer" << endl;
+    cout << "3. Promote an existing customer" << endl;
+    cout << "4. Rent an item" << endl;
+    cout << "5. Return an item" << endl;
+    cout << "6. Display all items" << endl;
+    cout << "7. Display out-of-stock items" << endl;
+    cout << "8. Display all customers" << endl;
+    cout << "9. Display group of customers" << endl;
+    cout << "10. Search items or customers" << endl;
+    cout << "Exit" << endl;
+    input();
+}
+
 
     int main(int argc, char const *argv[])
     {
