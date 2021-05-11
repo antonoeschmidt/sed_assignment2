@@ -35,10 +35,6 @@ DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, boo
         this->genre = genre;
 }
 
-Records::Records() : Item()
-{
-    this->genre = "Action";
-}
 
 Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
