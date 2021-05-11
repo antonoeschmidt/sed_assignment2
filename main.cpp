@@ -6,6 +6,16 @@
 using namespace std;
 
 /* ------ ITEMS ------ */
+Item::Item()
+{
+    this->id = "I123-1993";
+    this->title = "c++ rules";
+    this->loanType = "2-day";
+    this->stock = 3;
+    this->rentalFee = 496;
+    this->borrowed = false;    
+}
+
 Item::Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed)
 {
     this->id = id;
