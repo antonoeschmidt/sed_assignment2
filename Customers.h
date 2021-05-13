@@ -26,11 +26,8 @@ public:
     string getPhone();
     Item *getItem();
     int getNoOfReturns();
-    void returnItem(/* Will have Item here as an argument */)
-    {
-        noOfReturns++;
-        //TODO: return item
-    }
+    virtual bool borrowItem() = 0;
+    virtual bool returnItem() = 0;
     bool isGuest();
     // For testing
     void setItem(Item *item);

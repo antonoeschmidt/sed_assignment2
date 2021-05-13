@@ -9,7 +9,7 @@ using namespace std;
 class Item
 {
 private:
-    string id, title, loanType;
+    string id, title, loanType, rentalType;
     int stock;
     float rentalFee;
     bool borrowed;
