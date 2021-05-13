@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include "Customers.h"
 #include "Items.h"
@@ -153,9 +154,22 @@ void Menu()
     input();
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
+    // Checks if the program is executed in the correct format
+    if (argc != 2)
+    {
+        cout << "Invalid amount of argument";
+        return -1;
+    }
 
+    //Opening the file and checking if it's opened properly
+    fstream infile(argv[1]);
+    if (!infile)
+    {
+        cerr << "Error opening file" << endl;
+        return -1;
+    }
     //UI
     Menu();
     // Tests
