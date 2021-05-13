@@ -13,7 +13,7 @@ Item::Item()
     this->loanType = "2-day";
     this->stock = 3;
     this->rentalFee = 496;
-    this->borrowed = false;    
+    this->borrowed = false;
 }
 
 Item::Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed)
@@ -42,9 +42,8 @@ DVD::DVD() : Item()
 
 DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
-        this->genre = genre;
+    this->genre = genre;
 }
-
 
 Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
@@ -118,16 +117,16 @@ void input()
     {
         switch (option)
         {
-        case 1: ;
-        case 2: ; 
-        case 3: ;
-        case 4: ; 
-        case 5: ; 
-        case 6: ; 
-        case 7: ; 
-        case 8: ;
-        case 9: ; 
-        case 10: ;
+        case 1:;
+        case 2:;
+        case 3:;
+        case 4:;
+        case 5:;
+        case 6:;
+        case 7:;
+        case 8:;
+        case 9:;
+        case 10:;
         }
     }
     else
@@ -154,29 +153,29 @@ void Menu()
     input();
 }
 
+int main(int argc, char const *argv[])
+{
 
-    int main(int argc, char const *argv[])
-    {
+    //UI
+    Menu();
+    // Tests
+    // Items
+    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
+    cout << item1->getId() << endl;
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    item1->setBorrowed(true);
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
 
-        //UI
-        Menu();
-        // Items
-        Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-        cout << item1->getId() << endl;
-        cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-        item1->setBorrowed(true);
-        cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    // Customers
+    Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
+    cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
+    cus1->setItem(item1);
+    Item *item2 = cus1->getItem();
+    cout << item2->getTitle() << endl;
 
-        // Customers
-        Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
-        cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
-        cus1->setItem(item1);
-        Item *item2 = cus1->getItem();
-        cout << item2->getTitle() << endl;
+    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
+    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
+    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
 
-        Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-        cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
-        cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
-
-        return 0;
-    }
+    return 0;
+}
