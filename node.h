@@ -31,6 +31,7 @@ class nodeItem : public node
         Item I;
 };
 
+//Customer node class
 class nodeCustomer : public node
 {
     public:
