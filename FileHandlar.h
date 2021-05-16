@@ -1,12 +1,10 @@
-#pragma once
+
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
-#include "pch.h"
+
 #include <typeinfo>
-#include "Operations.h"
-#include "Member.h"
 
 using namespace std;
 
