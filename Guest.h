@@ -1,6 +1,6 @@
-#include "pch.h"
+
 #include <string>
-#include "Member.h"
+
 
 // set maximum renting number of video for guest account
 #define MAXRENT_GUEST 2
