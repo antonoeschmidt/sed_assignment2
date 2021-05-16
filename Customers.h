@@ -46,4 +46,14 @@ public:
     bool isGuest();
 };
 
+class VIP: public Customer
+{
+    private:
+        int maxRental;
+        bool guest;
+    public: 
+        VIP();
+        VIP(string id, string name, string address, string phone, int reward);
+};
+
 #endif
