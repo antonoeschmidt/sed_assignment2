@@ -45,11 +45,13 @@ DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, boo
 {
     this->genre = genre;
 }
+string DVD::getGenre() { return genre; }
 
 Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
     this->genre = genre;
 }
+string Records::getGenre() { return genre; }
 
 VideoGames::VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
@@ -88,6 +90,19 @@ Guest::Guest(string id, string name, string address, string phone)
 {
     this->guest = true;
     this->maxRental = 2;
+}
+bool Guest::borrowItem(/* item here */)
+{
+    cout << "Borrow Item called" << endl;
+
+    return false;
+}
+
+bool Guest::returnItem(/* item here */)
+{
+    cout << "Return Item called" << endl;
+
+    return false;
 }
 
 bool Guest::isGuest() { return guest; }
@@ -154,6 +169,26 @@ void Menu()
     input();
 }
 
+void Test() {
+    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
+    cout << item1->getId() << endl;
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    item1->setBorrowed(true);
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+
+    // Customers
+    // Customer base class cant be declared with abstract methods
+    // Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
+    // cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
+    // cus1->setItem(item1);
+    // Item *item2 = cus1->getItem();
+    // cout << item2->getTitle() << endl;
+
+    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
+    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
+    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
+}
+
 int main(int argc, char *argv[])
 {
     // Checks if the program is executed in the correct format
@@ -172,24 +207,10 @@ int main(int argc, char *argv[])
     }
     //UI
     Menu();
+
     // Tests
-    // Items
-    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-    cout << item1->getId() << endl;
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-    item1->setBorrowed(true);
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    Test();
 
-    // Customers
-    Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
-    cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
-    cus1->setItem(item1);
-    Item *item2 = cus1->getItem();
-    cout << item2->getTitle() << endl;
-
-    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
-    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
 
     return 0;
 }
