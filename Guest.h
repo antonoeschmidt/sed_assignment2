@@ -18,8 +18,8 @@ public:
 	~Guest();
 
 	// function for guest account to borrow and return item
-	bool rentItem(Item* item);
-	bool returnItem(Item* item);
+	bool rentItem(item* item);
+	bool returnItem(item* item);
 
 	// functions retrieve account data (name, id, etc)
 	string getId();
@@ -60,7 +60,7 @@ public:
 	//bool removeItemFromList();
 
 	bool guestUpgrade(); // function upgrade account
-	bool checkCustomerOwnItems(Item* item); // function check item own by the account
+	bool checkCustomerOwnItems(item* item); // function check item own by the account
 
 
 private:
