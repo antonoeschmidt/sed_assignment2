@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Items.h"
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ private:
     string id, name, address, phone;
     Item *testItem; // Not the right field, but will be there untill the LinkedList is implemented
     int noOfReturns;
+    vector<Item*> BorrowedList;
     bool guest;
 
 public:
@@ -25,6 +27,7 @@ public:
     string getPhone();
     Item *getItem();
     int getNoOfReturns();
+    vector<Item*> getBorrowedList(){ return BorrowedList;};
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
     virtual bool returnItem() = 0;
     bool isGuest();
@@ -53,7 +56,6 @@ public:
     Guest();
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
-    bool isGuest(); 
     bool borrowItem();
     bool returnItem();
 };

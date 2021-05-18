@@ -52,7 +52,6 @@ bool Guest::returnItem(/* item here */)
     return false;
 }
 
-bool Guest::isGuest() { return guest; }
 int Guest::getMaxRental() { return maxRental; }
 
 
