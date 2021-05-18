@@ -26,9 +26,21 @@ public:
     Item *getItem();
     int getNoOfReturns();
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
-    virtual bool returnItem() = 0; 
+    virtual bool returnItem() = 0;
     bool isGuest();
     void setItem(Item *item); // For testing
+};
+
+class Regular : public Customer
+{
+private:
+    bool guest;
+
+public:
+    Regular();
+    Regular(string id, string name, string address, string phone);
+    bool borrowItem();
+    bool returnItem();
 };
 
 class Guest : public Customer
@@ -41,10 +53,22 @@ public:
     Guest();
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
-    bool isGuest();
+    bool isGuest(); // does it have to be here, when it's already in Customer class?
     bool borrowItem();
     bool returnItem();
-    
+};
+
+class VIP : public Customer
+{
+private:
+    bool guest;
+
+public:
+    VIP();
+    VIP(string id, string name, string address, string phone, int reward);
+    bool borrowItem();
+    bool returnItem();
+    int getReward();
 };
 
 #endif
