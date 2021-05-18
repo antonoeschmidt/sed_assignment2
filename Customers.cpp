@@ -35,6 +35,20 @@ Regular::Regular(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
 }
+bool Regular::borrowItem(/* item here */)
+{
+    cout << "Borrow Item called" << endl;
+
+    return false;
+}
+
+bool Regular::returnItem(/* item here */)
+{
+    cout << "Return Item called" << endl;
+
+    return false;
+}
+
 
 // ---- Guest -----
 Guest::Guest() : Customer()
@@ -42,12 +56,14 @@ Guest::Guest() : Customer()
     this->guest = true;
     this->maxRental = 2;
 }
+
 Guest::Guest(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = true;
     this->maxRental = 2;
 }
+
 bool Guest::borrowItem(/* item here */)
 {
     cout << "Borrow Item called" << endl;
@@ -64,3 +80,13 @@ bool Guest::returnItem(/* item here */)
 
 bool Guest::isGuest() { return guest; }
 int Guest::getMaxRental() { return maxRental; }
+
+// ----- VIP -----
+VIP::VIP() : Customer()
+{
+}
+VIP::VIP(string id, string name, string address, string phone, int reward)
+    : Customer(id, name, address, phone)
+{
+    this->reward = reward;
+}

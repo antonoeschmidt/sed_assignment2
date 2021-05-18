@@ -55,7 +55,7 @@ public:
     Guest();
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
-    bool isGuest(); // does it have to be here, when it's already in Customer class?
+    bool isGuest(); 
     bool borrowItem();
     bool returnItem();
 };
@@ -65,6 +65,7 @@ class VIP: public Customer
     private:
         int maxRental;
         bool guest;
+        int reward;
     public: 
         VIP();
         VIP(string id, string name, string address, string phone, int reward);
