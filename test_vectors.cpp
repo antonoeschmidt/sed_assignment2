@@ -1,9 +1,11 @@
 #include <iostream>
 #include <vector>
 #include "Customers.h"
+#include "Customers.cpp"
 
 using namespace std;
 
+<<<<<<< HEAD
 /* ------ CUSTOMERS ------ */
 Customer::Customer() {}
 Customer::Customer(string id, string name, string address, string phone)
@@ -56,15 +58,17 @@ int Guest::getMaxRental() { return maxRental; }
 
 
 
+=======
+>>>>>>> master
 int main()
 {
-    vector<Item*> guestList;
+    vector<Customer*> guestList;
 
-    It *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-    Guest *guest2 = new Guest("11", "Anton", "District 4", "0123 012 234");
+    Guest *guest1 = new Guest("11", "Guest Doggy", "District 14", "0123 012 234");
+    Regular *reg1 = new Regular("11", "Regular Anton", "District 4", "0123 012 234");
 
     guestList.push_back(guest1);
-    guestList.push_back(guest2);
+    guestList.push_back(reg1);
 
     cout << "Output of begin and end: ";
 

@@ -3,96 +3,6 @@
 FileHandlar::FileHandlar() {}
 FileHandlar :: ~FileHandlar() {}
 
-bool FileHandlar::isCountFile()
-{
-	ifstream _fcount; // using input stream to read an external text file
-	_fcount.open("count.txt");
-	if (_fcount) // check if file is read or exist
-	{
-		cout << "File Exists" << endl;
-		_fcount.close();
-		return true;
-	}
-	else // check if file is read or exist
-	{
-		cout << "file doesn't exist" << endl;
-		return false;
-	}
-}
-
-bool FileHandlar::writeCountFile(int count)  // write to the same text file
-{
-	ofstream countFile("count.txt");
-	countFile << count;
-	countFile.close();
-	return true;
-}
-
-int FileHandlar::readCountFile()
-{
-	int count = 0;
-	string sCount;
-	ifstream _fcount; // input and read text file
-	_fcount.open("count.txt");
-	while (_fcount) // check if file can be open
-	{
-		getline(_fcount, sCount); // get line from text file and store in scount variable
-		if (sCount == "-1")
-		{
-			cout << "cant open count file" << endl;
-			break;
-		}
-		count = stoi(sCount);  // set and return count value
-	}
-	_fcount.close();
-	return count;
-}
-
-
-bool FileHandlar::isCustCountFile() // similar to above function to read and count number of customers
-{
-	ifstream _fcount;
-	_fcount.open("custCount.txt");
-	if (_fcount) // check if file can be open
-	{
-		cout << "CustCount File Exists" << endl;
-		_fcount.close();
-		return true;
-	}
-	else // check if file can be open
-	{
-		cout << "CustCount file doesn't exist" << endl;
-		return false;
-	}
-}
-
-bool FileHandlar::writeCustCountFile(int count) // write to customer count file
-{
-	ofstream countFile("custCount.txt");
-	countFile << count;
-	countFile.close();
-	return true;
-}
-
-int FileHandlar::readCustCountFile()
-{
-	int count = 0;
-	string sCount;
-	ifstream _fcount;
-	_fcount.open("custCount.txt");
-	while (_fcount) // check if file can be open
-	{
-		getline(_fcount, sCount); // get line from text file and store in scount variable
-		if (sCount == "-1")
-		{
-			cout << "cant open custCount count file" << endl;
-			break;
-		}
-		count = stoi(sCount); // set and return count value
-	}
-	_fcount.close();
-	return count;
-}
 
 bool FileHandlar::isCustomerFile() // function to check for the customer file 
 {
@@ -121,6 +31,80 @@ bool FileHandlar::writeCustomerFile(string line) // write to customer text file
 }
 
 
+bool FileHandlar::readCustomerFile() // function read customer file 
+{
+	int len = 0;
+	string line;
+	string temp;
+	string collectBuff = "";
+
+	vector<string> strBuff;
+	vector<string> customerData;
+	//vector<string> customerID;
+	vector<string> customerItems;
+	vector<string> customerItemList;
+	
+
+
+	int x, count, y;
+
+	// char* temp_array;
+
+	FileHandlar filehandlar;
+
+	//write to customer file
+	//filehandlar.writeCustomerFile();
+
+	if (!filehandlar.isCustomerFile()) { cout << "isCustomerFile : NO" << endl; return false; }
+
+	ifstream _fcount; //input customers text file
+
+	_fcount.open("customers.txt");
+
+
+	while (_fcount)
+	{
+		getline(_fcount, line); // if file is open get and store value in line
+		if (line == "-1")
+		{
+			cout << "can't open file" << endl;
+			break; // if file is not found
+		}
+		strBuff.push_back(line);
+		line = "";
+	}
+	_fcount.close();
+	int itr = 0;
+	for (auto i = strBuff.begin(); i != strBuff.end(); ++i)
+	{
+		temp = *i;
+
+		if (temp.c_str()[0] == 'C')
+		{
+			customerData.push_back(temp);
+			if (itr != 0)
+			{
+				customerItems.push_back(collectBuff);
+			}
+			collectBuff = "";
+			itr++;
+		}
+		if (temp.c_str()[0] == 'I')
+		{
+			collectBuff += temp + ',';
+		}
+		if (i == strBuff.end() - 2)
+		{
+			customerData.push_back(temp);
+			customerItems.push_back(collectBuff);
+			collectBuff = "";
+		}
+
+		
+	}
+
+}
+
 bool FileHandlar::isItemFile()
 {
 	ifstream _fcount;
@@ -137,4 +121,23 @@ bool FileHandlar::isItemFile()
 		_fcount.close();
 		return false;
 	}
+}
+
+bool FileHandlar::readItemFile(){
+	int count = 0;
+	string sCount;
+	ifstream _fcount;
+	_fcount.open("items.txt");
+	while (_fcount) // check if file can be open
+	{
+		getline(_fcount, sCount); // get line from text file and store  variable
+		if (sCount == "-1")
+		{
+			cout << "cant open custCount count file" << endl;
+			break;
+		}
+		count = stoi(sCount); // set and return count value
+	}
+	_fcount.close();
+	return count;
 }
