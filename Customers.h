@@ -31,6 +31,20 @@ public:
     void setItem(Item *item); // For testing
 };
 
+class Regular : public Customer
+{
+private:
+    int maxRental;
+    bool guest;
+
+public:
+    Regular();
+    Regular(string id, string name, string address, string phone);
+    bool borrowItem();
+    bool returnItem();
+};
+
+
 class Guest : public Customer
 {
 private:
@@ -41,10 +55,9 @@ public:
     Guest();
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
-    bool isGuest();
+    bool isGuest(); // does it have to be here, when it's already in Customer class?
     bool borrowItem();
     bool returnItem();
-    
 };
 
 class VIP: public Customer
@@ -55,6 +68,10 @@ class VIP: public Customer
     public: 
         VIP();
         VIP(string id, string name, string address, string phone, int reward);
+        bool borrowItem();
+        bool returnItem();
+        int getReward();
+        
 };
 
 #endif
