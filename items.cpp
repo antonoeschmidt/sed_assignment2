@@ -1,4 +1,6 @@
-#include <items.h>
+#include "Items.h"
+#include <iostream>
+using namespace std;
 
 /* ------ ITEMS ------ */
 Item::Item()

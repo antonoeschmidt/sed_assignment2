@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Customers.h"
 #include "Items.h"
+#include "items.cpp"
 
 using namespace std;
 
@@ -156,6 +158,10 @@ int main(int argc, char *argv[])
         cerr << "Error opening file" << endl;
         return -1;
     }
+
+    //Declaring Vectors
+    vector<Item*> ItemList;
+    vector<Guest*> GuestList;
     //UI
     Menu();
 
