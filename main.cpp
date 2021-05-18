@@ -1,14 +1,59 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include "Customers.h"
 #include "Items.h"
-#include "items.cpp"
 
 using namespace std;
 
+/* ------ ITEMS ------ */
+Item::Item()
+{
+    this->id = "I123-1993";
+    this->title = "c++ rules";
+    this->loanType = "2-day";
+    this->stock = 3;
+    this->rentalFee = 496;
+    this->borrowed = false;
+}
 
+Item::Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed)
+{
+    this->id = id;
+    this->title = title;
+    this->loanType = loanType;
+    this->stock = stock;
+    this->rentalFee = rentalFee;
+    this->borrowed = borrowed;
+}
+string Item::getId() { return this->id; }
+string Item::getTitle() { return this->title; }
+int Item::getStock() { return this->stock; }
+float Item::getRentalFee() { return this->rentalFee; }
+bool Item::getBorrowed() { return this->borrowed; }
+void Item::setBorrowed(bool isBorrowed)
+{
+    this->borrowed = isBorrowed;
+}
+
+DVD::DVD() : Item()
+{
+    this->genre = "Action";
+}
+
+DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
+{
+    this->genre = genre;
+}
+
+Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
+{
+    this->genre = genre;
+}
+
+VideoGames::VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed) : Item(id, title, loanType, stock, rentalFee, borrowed)
+{
+}
 
 /* ------ CUSTOMERS ------ */
 Customer::Customer() {}
@@ -43,19 +88,6 @@ Guest::Guest(string id, string name, string address, string phone)
 {
     this->guest = true;
     this->maxRental = 2;
-}
-bool Guest::borrowItem(/* item here */)
-{
-    cout << "Borrow Item called" << endl;
-
-    return false;
-}
-
-bool Guest::returnItem(/* item here */)
-{
-    cout << "Return Item called" << endl;
-
-    return false;
 }
 
 bool Guest::isGuest() { return guest; }
@@ -122,26 +154,6 @@ void Menu()
     input();
 }
 
-void Test() {
-    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-    cout << item1->getId() << endl;
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-    item1->setBorrowed(true);
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-
-    // Customers
-    // Customer base class cant be declared with abstract methods
-    // Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
-    // cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
-    // cus1->setItem(item1);
-    // Item *item2 = cus1->getItem();
-    // cout << item2->getTitle() << endl;
-
-    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
-    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
-}
-
 int main(int argc, char *argv[])
 {
     // Checks if the program is executed in the correct format
@@ -158,16 +170,26 @@ int main(int argc, char *argv[])
         cerr << "Error opening file" << endl;
         return -1;
     }
-
-    //Declaring Vectors
-    vector<Item*> ItemList;
-    vector<Guest*> GuestList;
     //UI
     Menu();
-
     // Tests
-    Test();
+    // Items
+    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
+    cout << item1->getId() << endl;
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    item1->setBorrowed(true);
+    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
 
+    // Customers
+    Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
+    cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
+    cus1->setItem(item1);
+    Item *item2 = cus1->getItem();
+    cout << item2->getTitle() << endl;
+
+    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
+    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
+    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
 
     return 0;
 }

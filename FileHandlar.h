@@ -14,26 +14,18 @@ public:
 	FileHandlar();
 	~FileHandlar();
 
-	bool isCountFile(); // read and write a text file function
-	bool writeCountFile(int count);
-	int readCountFile(); // read, write and delete count text file
-	bool deleteCountFile();
 
-	// check, read, write and delete customer count file
-	bool isCustCountFile();
-	bool writeCustCountFile(int count);
-	int readCustCountFile();
-	bool deleteCustCountFile();
 
 	// check and write to customer list text file
 	bool isCustomerFile();
 	bool writeCustomerFile(string line);
-	//bool readCustomerFile(Operations* operation);
+	bool readCustomerFile();
+
 
 	// check if item text file exist
 	bool isItemFile();
+	bool readItemFile();
 
-	// bool decompseCustomerData(Operations* operation, string id, string name, string address, string phone, string numRent, string rating);
 
 private:
 	// declare variable

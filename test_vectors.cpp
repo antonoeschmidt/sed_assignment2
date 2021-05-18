@@ -61,6 +61,7 @@ int main()
 {
     vector<Item*> guestList;
 
+
     It *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
     Guest *guest2 = new Guest("11", "Anton", "District 4", "0123 012 234");
 
