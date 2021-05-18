@@ -3,63 +3,62 @@
 #include <string>
 #include <vector>
 #include "Customers.h"
+#include "Customers.cpp"
 #include "Items.h"
 #include "items.cpp"
 
 using namespace std;
 
-
-
 /* ------ CUSTOMERS ------ */
-Customer::Customer() {}
-Customer::Customer(string id, string name, string address, string phone)
-{
-    this->id = id;
-    this->name = name;
-    this->address = address;
-    this->phone = phone;
-    this->guest = false;
-    this->noOfReturns = 0;
-}
-string Customer::getId() { return id; }
-string Customer::getName() { return name; }
-string Customer::getAddress() { return address; }
-string Customer::getPhone() { return phone; }
-Item *Customer::getItem() { return testItem; }
-int Customer::getNoOfReturns() { return noOfReturns; }
-bool Customer::isGuest() { return guest; }
-void Customer::setItem(Item *item)
-{
-    this->testItem = item;
-}
-// ---- Guest -----
-Guest::Guest() : Customer()
-{
-    this->guest = true;
-    this->maxRental = 2;
-}
-Guest::Guest(string id, string name, string address, string phone)
-    : Customer(id, name, address, phone)
-{
-    this->guest = true;
-    this->maxRental = 2;
-}
-bool Guest::borrowItem(/* item here */)
-{
-    cout << "Borrow Item called" << endl;
+// Customer::Customer() {}
+// Customer::Customer(string id, string name, string address, string phone)
+// {
+//     this->id = id;
+//     this->name = name;
+//     this->address = address;
+//     this->phone = phone;
+//     this->guest = false;
+//     this->noOfReturns = 0;
+// }
+// string Customer::getId() { return id; }
+// string Customer::getName() { return name; }
+// string Customer::getAddress() { return address; }
+// string Customer::getPhone() { return phone; }
+// Item *Customer::getItem() { return testItem; }
+// int Customer::getNoOfReturns() { return noOfReturns; }
+// bool Customer::isGuest() { return guest; }
+// void Customer::setItem(Item *item)
+// {
+//     this->testItem = item;
+// }
+// // ---- Guest -----
+// Guest::Guest() : Customer()
+// {
+//     this->guest = true;
+//     this->maxRental = 2;
+// }
+// Guest::Guest(string id, string name, string address, string phone)
+//     : Customer(id, name, address, phone)
+// {
+//     this->guest = true;
+//     this->maxRental = 2;
+// }
+// bool Guest::borrowItem(/* item here */)
+// {
+//     cout << "Borrow Item called" << endl;
 
-    return false;
-}
+//     return false;
+// }
 
-bool Guest::returnItem(/* item here */)
-{
-    cout << "Return Item called" << endl;
+// bool Guest::returnItem(/* item here */)
+// {
+//     cout << "Return Item called" << endl;
 
-    return false;
-}
+//     return false;
+// }
 
-bool Guest::isGuest() { return guest; }
-int Guest::getMaxRental() { return maxRental; }
+// bool Guest::isGuest() { return guest; }
+// int Guest::getMaxRental() { return maxRental; }
 
 void input()
 {
@@ -122,7 +121,8 @@ void Menu()
     input();
 }
 
-void Test() {
+void Test()
+{
     Item *item1 = new Item("123", "hej", "book", 1, 100, false);
     cout << item1->getId() << endl;
     cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
@@ -140,6 +140,9 @@ void Test() {
     Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
     cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
     cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
+
+    Regular *reg1 = new Regular("11", "RegDoggy", "District 1", "0123 012 234");
+    cout << "Is guest?: " << boolalpha << reg1->isGuest() << endl;
 }
 
 int main(int argc, char *argv[])
@@ -160,14 +163,13 @@ int main(int argc, char *argv[])
     }
 
     //Declaring Vectors
-    vector<Item*> ItemList;
-    vector<Guest*> GuestList;
+    vector<Item *> ItemList;
+    vector<Guest *> GuestList;
     //UI
     Menu();
 
     // Tests
     Test();
-
 
     return 0;
 }
