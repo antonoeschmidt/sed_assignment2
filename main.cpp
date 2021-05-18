@@ -11,8 +11,76 @@
 
 using namespace std;
 
+bool addItem()
+{
+    string Title;
+    cout << "Enter Title: ";
+    cin >> Title;
+    string id;
+    cout << "Enter Item 3-digit code: ";
+
+
+    cout << "Select Item Type: " << endl
+         << "(1) Record" << endl
+         << "(2) DVD" << endl
+         << "(3) Game" << endl;
+    string type;
+}
+
+void Menu()
+{
+    cout << "Welcome to Oggy's video store" << endl;
+    cout << "Enter an option below." << endl;
+    cout << "1. Add a new item, update or delete an existing item" << endl;
+    cout << "2. Add new customer or update an existing customer" << endl;
+    cout << "3. Promote an existing customer" << endl;
+    cout << "4. Rent an item" << endl;
+    cout << "5. Return an item" << endl;
+    cout << "6. Display all items" << endl;
+    cout << "7. Display out-of-stock items" << endl;
+    cout << "8. Display all customers" << endl;
+    cout << "9. Display group of customers" << endl;
+    cout << "10. Search items or customers" << endl;
+    cout << "Exit" << endl;
+}
+
+bool auditem()
+{
+    cout << "Choose action:" << endl
+         << "(1) Add" << endl
+         << "(2) Delete" << endl
+         << "(3) Update" << endl
+         << "(0) Back to menu" << endl;
+    string a;
+    int tmp;
+    cin >> a;
+    try
+    {
+        tmp = stoi(a);
+    }
+    catch (const invalid_argument)
+    {
+        cerr << "Invalid input";
+        return false;
+    }
+    if (tmp >= 0 && tmp <= 3)
+    {
+        switch (tmp)
+        {
+        case 0:
+            return true;
+        case 1:
+            addItem();
+        case 2:;
+        case 3:;
+        }
+    }
+    return false;
+}
+
 void input()
 {
+    Menu();
     string choice;
     int option;
     cin >> choice;
@@ -32,45 +100,22 @@ void input()
             cerr << "Invalid input";
         }
     }
-    if (option >= 1 && option <= 10)
+    switch (option)
     {
-        switch (option)
+    case 1:
+        bool tmp;
+        do
         {
-        case 1:;
-        case 2:;
-        case 3:;
-        case 4:;
-        case 5:;
-        case 6:;
-        case 7:;
-        case 8:;
-        case 9:;
-        case 10:;
-        }
-    }
-    else
-    {
-        cerr << "Invalid Input";
+            tmp = auditem();
+        } while (tmp != true);
+        input();
+        break;
+    case 2:;
+    default:
+        cerr << "Incorrect Use";
     }
 }
 
-void Menu()
-{
-    cout << "Welcome to Oggy's video store" << endl;
-    cout << "Enter an option below." << endl;
-    cout << "1. Add a new item, update or delete an existing item" << endl;
-    cout << "2. Add new customer or update an existing customer" << endl;
-    cout << "3. Promote an existing customer" << endl;
-    cout << "4. Rent an item" << endl;
-    cout << "5. Return an item" << endl;
-    cout << "6. Display all items" << endl;
-    cout << "7. Display out-of-stock items" << endl;
-    cout << "8. Display all customers" << endl;
-    cout << "9. Display group of customers" << endl;
-    cout << "10. Search items or customers" << endl;
-    cout << "Exit" << endl;
-    input();
-}
 
 void Test()
 {
@@ -135,12 +180,11 @@ int main(int argc, char *argv[])
         cerr << "Error opening file" << endl;
         return -1;
     }
-
     //Declaring Vectors
     vector<Item *> ItemList;
     vector<Guest *> GuestList;
     //UI
-    Menu();
+    input();
 
     // Tests
     Test();
