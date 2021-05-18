@@ -11,8 +11,7 @@ class Customer
 {
 private:
     string id, name, address, phone;
-    // Not the right field, but will be there untill the LinkedList is implemented
-    Item *testItem;
+    Item *testItem; // Not the right field, but will be there untill the LinkedList is implemented
     int noOfReturns;
     bool guest;
 
@@ -26,11 +25,10 @@ public:
     string getPhone();
     Item *getItem();
     int getNoOfReturns();
-    virtual bool borrowItem() = 0;
-    virtual bool returnItem() = 0;
+    virtual bool borrowItem() = 0; // Pure virtual/abstract method
+    virtual bool returnItem() = 0; 
     bool isGuest();
-    // For testing
-    void setItem(Item *item);
+    void setItem(Item *item); // For testing
 };
 
 class Guest : public Customer
@@ -44,6 +42,9 @@ public:
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
     bool isGuest();
+    bool borrowItem();
+    bool returnItem();
+    
 };
 
 class VIP: public Customer

@@ -68,9 +68,6 @@ class VideoGames : public Item
     public:
         VideoGames();
         VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed);
-
-        string getGenre();
-        void setGenre(string genre);
 };
 
 
