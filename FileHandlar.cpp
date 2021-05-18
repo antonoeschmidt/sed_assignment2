@@ -53,7 +53,7 @@ bool FileHandlar::readCustomerFile() // function read customer file
 	FileHandlar filehandlar;
 
 	//write to customer file
-	filehandlar.writeCustomerFile(1);
+	//filehandlar.writeCustomerFile();
 
 	if (!filehandlar.isCustomerFile()) { cout << "isCustomerFile : NO" << endl; return false; }
 
