@@ -29,12 +29,15 @@ void Customer::setItem(Item *item)
 // ----- Regular -----
 Regular::Regular() : Customer()
 {
+    this->guest = false;
 }
 
-Regular::Regular(string id, string name, string address, string phone) 
+Regular::Regular(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
+    this->guest = false;
 }
+
 bool Regular::borrowItem(/* item here */)
 {
     cout << "Borrow Item called" << endl;
@@ -89,4 +92,18 @@ VIP::VIP(string id, string name, string address, string phone, int reward)
     : Customer(id, name, address, phone)
 {
     this->reward = reward;
+}
+
+bool VIP::borrowItem(/* item here */)
+{
+    cout << "Borrow Item called" << endl;
+
+    return false;
+}
+
+bool VIP::returnItem(/* item here */)
+{
+    cout << "Return Item called" << endl;
+
+    return false;
 }

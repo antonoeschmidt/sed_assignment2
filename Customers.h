@@ -26,7 +26,7 @@ public:
     Item *getItem();
     int getNoOfReturns();
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
-    virtual bool returnItem() = 0; 
+    virtual bool returnItem() = 0;
     bool isGuest();
     void setItem(Item *item); // For testing
 };
@@ -34,7 +34,6 @@ public:
 class Regular : public Customer
 {
 private:
-    int maxRental;
     bool guest;
 
 public:
@@ -43,7 +42,6 @@ public:
     bool borrowItem();
     bool returnItem();
 };
-
 
 class Guest : public Customer
 {
@@ -60,10 +58,9 @@ public:
     bool returnItem();
 };
 
-class VIP: public Customer
+class VIP : public Customer
 {
     private:
-        int maxRental;
         bool guest;
         int reward;
     public: 
