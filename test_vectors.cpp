@@ -59,9 +59,9 @@ int Guest::getMaxRental() { return maxRental; }
 
 int main()
 {
-    vector<Guest*> guestList;
+    vector<Item*> guestList;
 
-    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
+    It *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
     Guest *guest2 = new Guest("11", "Anton", "District 4", "0123 012 234");
 
     guestList.push_back(guest1);
@@ -73,14 +73,6 @@ int main()
     {
         cout << guestList[i]->getName() << endl;
     }
-
-    // g1.erase((g1.begin() + 2));
-
-    // for (int i = 0; i < g1.size(); i++)
-    // {
-    //     cout << g1[i] << endl;
-    // }
-
 
     return 0;
 }
