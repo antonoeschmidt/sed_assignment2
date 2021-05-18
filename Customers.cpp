@@ -29,11 +29,27 @@ void Customer::setItem(Item *item)
 // ----- Regular -----
 Regular::Regular() : Customer()
 {
+    this->guest = false;
 }
 
-Regular::Regular(string id, string name, string address, string phone) 
+Regular::Regular(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
+    this->guest = false;
+}
+
+bool Regular::borrowItem(/* item here */)
+{
+    cout << "Borrow Item called" << endl;
+
+    return false;
+}
+
+bool Regular::returnItem(/* item here */)
+{
+    cout << "Return Item called" << endl;
+
+    return false;
 }
 
 // ---- Guest -----
