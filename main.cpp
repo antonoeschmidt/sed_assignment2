@@ -52,10 +52,18 @@ void addItem()
         cout << "Enter genre: ";
         cin >> genre;
         DVD disc(id, title, loan, stock, fee, borrowed, genre);
-        disc.getGenre();
-        return disc;
     }
-    return tmp;
+    if (type == REC)
+    {
+        cout << "Enter genre: ";
+        cin >> genre;
+        Records record(id, title, loan, stock, fee, borrowed, genre);
+    }
+    if (type == GA)
+    {
+        VideoGames vidya(id, title, loan, stock, fee, borrowed);
+    }
+    return;
 }
 
 void Menu()
