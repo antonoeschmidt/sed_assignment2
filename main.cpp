@@ -5,8 +5,8 @@
 #include "Customers.cpp"
 #include "Items.h"
 #include "items.cpp"
-#include "FileHandlar.h"
-#include "FileHandlar.cpp"
+#include "FileHandler.h"
+#include "FileHandler.cpp"
 
 using namespace std;
 
@@ -18,12 +18,13 @@ bool addItem()
     string id;
     cout << "Enter Item 3-digit code: ";
 
-
     cout << "Select Item Type: " << endl
          << "(1) Record" << endl
          << "(2) DVD" << endl
          << "(3) Game" << endl;
     string type;
+
+    return true;
 }
 
 void Menu()
@@ -115,14 +116,13 @@ void input()
     }
 }
 
-
 void Test()
 {
-    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-    cout << item1->getId() << endl;
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-    item1->setBorrowed(true);
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    // Item *item1 = new Item("123", "hej", "book", 1, 100, false);
+    // cout << item1->getId() << endl;
+    // cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
+    // item1->setBorrowed(true);
+    // cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
 
     // Customers
     // Customer base class cant be declared with abstract methods
@@ -132,46 +132,22 @@ void Test()
     // Item *item2 = cus1->getItem();
     // cout << item2->getTitle() << endl;
 
-    Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-    cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
-    cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
+    // Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
+    // cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
+    // cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
 
-    Regular *reg1 = new Regular("11", "RegDoggy", "District 1", "0123 012 234");
-    cout << "Is guest?: " << boolalpha << reg1->isGuest() << endl;
-}
-
-void populateItems(vector<Item*> items) {
-
-    // Call fileHandler to read items.txt
-    // which should return an array of string which we will iterate over
-
-    string items[5];
-    for (int i = 0; i < items.size(); i++)
-    {
-        /* code */
-    }
-    
-
-
-
+    // Regular *reg1 = new Regular("11", "RegDoggy", "District 1", "0123 012 234");
+    // cout << "Is guest?: " << boolalpha << reg1->isGuest() << endl;
 }
 
 int main(int argc, char *argv[])
 {
-
-    vector<Item*> items;
-    vector<Customer*> customers;
-
-    populateItems(items);
-
-
     // Checks if the program is executed in the correct format
     if (argc != 2)
     {
         cout << "Invalid amount of argument";
         return -1;
     }
-
     //Opening the file and checking if it's opened properly
     fstream infile(argv[1]);
     if (!infile)
@@ -179,26 +155,22 @@ int main(int argc, char *argv[])
         cerr << "Error opening file" << endl;
         return -1;
     }
-    //Declaring Vectors
-   // vector<Item *> ItemList;
-   // vector<Guest *> GuestList;
+
+    FileHandler fileHandler;
+    vector<Item *> items;
+    vector<Customer *> customers;
+
+    customers = fileHandler.readCustomerFile();
+    for (int i = 0; i < customers.size(); i++)
+    {
+        cout << customers[i]->getName() << endl;
+    }
+
     //UI
-    input();
+    //input();
 
     // Tests
-    // Items
-    Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-    cout << item1->getId() << endl;
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-    item1->setBorrowed(true);
-    cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-
-    // Customers
-    Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
-    cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
-    cus1->setItem(item1);
-    Item *item2 = cus1->getItem();
-    cout << item2->getTitle() << endl;
+    Test();
 
     return 0;
 }

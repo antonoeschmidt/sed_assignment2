@@ -18,12 +18,12 @@ string Customer::getId() { return id; }
 string Customer::getName() { return name; }
 string Customer::getAddress() { return address; }
 string Customer::getPhone() { return phone; }
-Item *Customer::getItem() { return testItem; }
 int Customer::getNoOfReturns() { return noOfReturns; }
 bool Customer::isGuest() { return guest; }
-void Customer::setItem(Item *item)
+vector<string> Customer::getItems() { return items; }
+void Customer::populateBorrowedItems(string itemId)
 {
-    this->testItem = item;
+    this->items.push_back(itemId);
 }
 
 // ----- Regular -----
@@ -52,6 +52,27 @@ bool Regular::returnItem(/* item here */)
     return false;
 }
 
+// -- VIP -- //
+VIP::VIP() : Customer()
+{
+    this->guest = false;
+}
+VIP::VIP(string id, string name, string address, string phone)
+    : Customer(id, name, address, phone)
+{
+    this->guest = false;
+}
+bool VIP::borrowItem(/* item here */)
+{
+    cout << "Borrow Item called" << endl;
+    return false;
+}
+bool VIP::returnItem(/* item here */)
+{
+    cout << "Return Item called" << endl;
+    return false;
+}
+
 // ---- Guest -----
 Guest::Guest() : Customer()
 {
@@ -67,16 +88,13 @@ Guest::Guest(string id, string name, string address, string phone)
 bool Guest::borrowItem(/* item here */)
 {
     cout << "Borrow Item called" << endl;
-
     return false;
 }
 
 bool Guest::returnItem(/* item here */)
 {
     cout << "Return Item called" << endl;
-
     return false;
 }
-
 bool Guest::isGuest() { return guest; }
 int Guest::getMaxRental() { return maxRental; }

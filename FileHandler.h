@@ -1,32 +1,28 @@
 
+#pragma once
+
+#include "Customers.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
-#include <typeinfo>
 
 using namespace std;
 
-class FileHandlar // handlar class
+class FileHandler
 {
 public:
 	//constructor and destructor
-	FileHandlar();
-	~FileHandlar();
-
-
-
+	FileHandler();
+	~FileHandler();
 	// check and write to customer list text file
 	bool isCustomerFile();
 	bool writeCustomerFile(string line);
-	bool readCustomerFile();
-
-
+	vector<Customer *> readCustomerFile();
 	// check if item text file exist
 	bool isItemFile();
 	bool readItemFile();
-
-
+	
 private:
 	// declare variable
 	char* temp_array;

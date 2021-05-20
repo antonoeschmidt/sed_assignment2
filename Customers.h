@@ -3,6 +3,7 @@
 #define CUSTOMERS_H_
 
 #include <string>
+#include <vector>
 #include "Items.h"
 
 using namespace std;
@@ -11,7 +12,7 @@ class Customer
 {
 private:
     string id, name, address, phone;
-    Item *testItem; // Not the right field, but will be there untill the LinkedList is implemented
+    vector<string> items;
     int noOfReturns;
     bool guest;
 
@@ -23,12 +24,12 @@ public:
     string getName();
     string getAddress();
     string getPhone();
-    Item *getItem();
     int getNoOfReturns();
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
     virtual bool returnItem() = 0;
     bool isGuest();
-    void setItem(Item *item); // For testing
+    vector<string> getItems();
+    void populateBorrowedItems(string itemId);
 };
 
 class Regular : public Customer
@@ -65,10 +66,10 @@ private:
 
 public:
     VIP();
-    VIP(string id, string name, string address, string phone, int reward);
+    VIP(string id, string name, string address, string phone);
     bool borrowItem();
     bool returnItem();
-    int getReward();
+    // int getReward();
 };
 
 #endif
