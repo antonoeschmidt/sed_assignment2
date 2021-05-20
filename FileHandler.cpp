@@ -24,11 +24,26 @@ bool FileHandler::isCustomerFile() // function to check for the customer file
 	}
 }
 
-bool FileHandler::writeCustomerFile(string line) // write to customer text file
+bool FileHandler::writeCustomersFile(vector<Customer *> customers) // write to customers text file
 {
-	ofstream countFile("customer.txt");
-	countFile << line;
-	countFile.close();
+	ofstream f;
+	f.open("customers.txt");
+
+	for (int i = 0; i < customers.size(); i++)
+	{
+		string line = customers[i]->toText();
+		f << line << endl;
+
+		vector<string> items = customers[i]->getItems();
+		if (items.size() > 0)
+		{
+			for (int j = 0; j < items.size(); j++)
+			{
+				f << items[j] << endl;
+			}
+		}
+	}
+	f.close();
 	return true;
 }
 

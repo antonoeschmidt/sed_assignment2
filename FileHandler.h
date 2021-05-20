@@ -17,12 +17,12 @@ public:
 	~FileHandler();
 	// check and write to customer list text file
 	bool isCustomerFile();
-	bool writeCustomerFile(string line);
+	bool writeCustomersFile(vector<Customer*> customers);
 	vector<Customer *> readCustomerFile();
 	// check if item text file exist
 	bool isItemFile();
 	bool readItemFile();
-	
+
 private:
 	// declare variable
 	char* temp_array;

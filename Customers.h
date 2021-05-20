@@ -27,6 +27,7 @@ public:
     int getNoOfReturns();
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
     virtual bool returnItem() = 0;
+    virtual string toText() = 0; // Uses to save to text
     bool isGuest();
     vector<string> getItems();
     void populateBorrowedItems(string itemId);
@@ -42,6 +43,7 @@ public:
     Regular(string id, string name, string address, string phone);
     bool borrowItem();
     bool returnItem();
+    string toText();
 };
 
 class Guest : public Customer
@@ -57,6 +59,7 @@ public:
     bool isGuest(); // does it have to be here, when it's already in Customer class?
     bool borrowItem();
     bool returnItem();
+    string toText();
 };
 
 class VIP : public Customer
@@ -69,6 +72,7 @@ public:
     VIP(string id, string name, string address, string phone);
     bool borrowItem();
     bool returnItem();
+    string toText();
     // int getReward();
 };
 

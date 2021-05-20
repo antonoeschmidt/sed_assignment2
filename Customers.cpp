@@ -52,6 +52,11 @@ bool Regular::returnItem(/* item here */)
     return false;
 }
 
+string Regular::toText()
+{
+    return this->getId() + "," + this->getName() + "," + this->getAddress() + "," + this->getPhone() + "," + to_string(this->getItems().size()) + ",Regular";
+}
+
 // -- VIP -- //
 VIP::VIP() : Customer()
 {
@@ -71,6 +76,10 @@ bool VIP::returnItem(/* item here */)
 {
     cout << "Return Item called" << endl;
     return false;
+}
+string VIP::toText()
+{
+    return this->getId() + "," + this->getName() + "," + this->getAddress() + "," + this->getPhone() + "," + to_string(this->getItems().size()) + ",VIP";
 }
 
 // ---- Guest -----
@@ -98,3 +107,8 @@ bool Guest::returnItem(/* item here */)
 }
 bool Guest::isGuest() { return guest; }
 int Guest::getMaxRental() { return maxRental; }
+
+string Guest::toText()
+{
+    return this->getId() + "," + this->getName() + "," + this->getAddress() + "," + this->getPhone() + "," + to_string(this->getItems().size()) + ",Guest";
+}
