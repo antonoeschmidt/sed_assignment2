@@ -10,9 +10,10 @@
 
 using namespace std;
 
-void addItem()
+FileHandler fileHandler;
+
+void addItem(vector<Item *> items)
 {
-    Item tmp;
     enum ItemType
     {
         REC = 1,
@@ -51,19 +52,22 @@ void addItem()
     {
         cout << "Enter genre: ";
         cin >> genre;
-        DVD disc(id, title, loan, stock, fee, borrowed, genre);
+        DVD *disc = new DVD(id, title, loan, stock, fee, genre);
+        items.push_back(disc);
     }
     if (type == REC)
     {
         cout << "Enter genre: ";
         cin >> genre;
-        Records record(id, title, loan, stock, fee, borrowed, genre);
+        Record *record = new Record(id, title, loan, stock, fee, genre);
+        items.push_back(record);
     }
     if (type == GA)
     {
-        VideoGames vidya(id, title, loan, stock, fee, borrowed);
+        VideoGames *videoGame = new VideoGames(id, title, loan, stock, fee);
+        items.push_back(videoGame);
     }
-    return;
+    fileHandler.writeItemsFile(items);
 }
 
 void Menu()
@@ -108,7 +112,7 @@ bool handleItem()
         case 0:
             return true;
         case 1:
-            addItem();
+            // addItem();
         case 2:;
         case 3:;
         }
@@ -141,7 +145,7 @@ bool handleCustomer()
         case 0:
             return true;
         case 1:
-            addItem();
+            // addItem();
         case 2:;
         }
     }
@@ -186,32 +190,9 @@ void input()
     }
 }
 
-void Test()
-{
-    // Item *item1 = new Item("123", "hej", "book", 1, 100, false);
-    // cout << item1->getId() << endl;
-    // cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-    // item1->setBorrowed(true);
-    // cout << "isBorrowed: " << boolalpha << item1->getBorrowed() << endl;
-
-    // Customers
-    // Customer base class cant be declared with abstract methods
-    // Customer *cus1 = new Customer("10", "Oggy", "District 12", "0702 602 509");
-    // cout << "Is guest?: " << boolalpha << cus1->isGuest() << endl;
-    // cus1->setItem(item1);
-    // Item *item2 = cus1->getItem();
-    // cout << item2->getTitle() << endl;
-
-    // Guest *guest1 = new Guest("11", "Doggy", "District 14", "0123 012 234");
-    // cout << "Is guest?: " << boolalpha << guest1->isGuest() << endl;
-    // cout << "Max rental: " << boolalpha << guest1->getMaxRental() << endl;
-
-    // Regular *reg1 = new Regular("11", "RegDoggy", "District 1", "0123 012 234");
-    // cout << "Is guest?: " << boolalpha << reg1->isGuest() << endl;
-}
-
 int main(int argc, char *argv[])
 {
+
     // Checks if the program is executed in the correct format
     if (argc != 2)
     {
@@ -226,8 +207,8 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    FileHandler fileHandler;
-    vector<Item*> items;
+    // FileHandler fileHandler;
+    vector<Item *> items;
     vector<Customer *> customers;
 
     // customers = fileHandler.readCustomerFile();
@@ -243,10 +224,8 @@ int main(int argc, char *argv[])
     }
     //UI
     // input();
-
-    fileHandler.writeItemsFile(items);
-    // Tests
-    Test();
+    addItem(items);
+    // fileHandler.writeItemsFile(items);
 
     return 0;
 }

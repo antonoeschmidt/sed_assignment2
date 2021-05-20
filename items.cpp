@@ -65,7 +65,7 @@ DVD::DVD(string id, string title, string loanType, int stock, float rentalFee, s
 }
 string DVD::getGenre() { return genre; }
 
-void DVD::setGenre(string genre) {this->genre = genre;}
+void DVD::setGenre(string genre) { this->genre = genre; }
 string DVD::toText()
 {
     string rentalFee = to_string(this->getRentalFee());
@@ -96,10 +96,12 @@ string Record::toText()
 }
 
 VideoGames::VideoGames(string id, string title, string loanType, int stock, float rentalFee) : Item(id, title, loanType, stock, rentalFee)
-
-void Record::setGenre(string genre) {this->genre = genre;}
-
+{
     ;
+}
+
+void Record::setGenre(string genre) { this->genre = genre; }
+
 string VideoGames::toText()
 {
     string rentalFee = to_string(this->getRentalFee());
