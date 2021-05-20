@@ -9,15 +9,15 @@ using namespace std;
 class Item
 {
 private:
-    string id, title, loanType, rentalType;
+    string id, title, loanType;
     int stock;
     float rentalFee;
-    bool borrowed;
+    bool avaliable;
 
 public:
     Item();
-    Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed);
-    ~Item() { ; }
+    Item(string id, string title, string loanType, int stock, float rentalFee);
+    // ~Item() { ; }
 
     string getId();
     void setId(string id);
@@ -29,11 +29,11 @@ public:
     void setStock(int stock);
     float getRentalFee();
     void setRentalFee(float rentalFee);
-    bool getBorrowed();
-    void setBorrowed(bool borrowed);
-};
+    bool isAvaliable();
+    void setAvaliable(bool avaliable);
+    virtual string toText() = 0; // Pure virtual/abstract method
 
-void setIsBorrowed(bool isBorrowed);
+};
 
 class DVD : public Item
 {
@@ -42,23 +42,25 @@ private:
 
 public:
     DVD();
-    DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre);
+    DVD(string id, string title, string loanType, int stock, float rentalFee, string genre);
 
     string getGenre();
     void setGenre(string genre);
+    string toText();
 };
 
-class Records : public Item
+class Record : public Item
 {
     private:
         string genre;
     
     public:
-        Records();
-        Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre);
+        Record();
+        Record(string id, string title, string loanType, int stock, float rentalFee, string genre);
 
         string getGenre();
         void setGenre(string genre);
+        string toText();
 };
 
 class VideoGames : public Item
@@ -67,8 +69,8 @@ class VideoGames : public Item
 
     public:
         VideoGames();
-        VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed);
+        VideoGames(string id, string title, string loanType, int stock, float rentalFee);
+        string toText();
 };
-
 
 #endif

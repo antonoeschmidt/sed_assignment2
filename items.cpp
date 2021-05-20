@@ -10,26 +10,48 @@ Item::Item()
     this->loanType = "2-day";
     this->stock = 3;
     this->rentalFee = 496;
-    this->borrowed = false;
+    this->avaliable = true;
 }
 
-Item::Item(string id, string title, string loanType, int stock, int rentalFee, bool borrowed)
+Item::Item(string id, string title, string loanType, int stock, float rentalFee)
 {
     this->id = id;
     this->title = title;
     this->loanType = loanType;
     this->stock = stock;
     this->rentalFee = rentalFee;
-    this->borrowed = borrowed;
+    this->avaliable = stock > 0;
 }
 string Item::getId() { return this->id; }
-string Item::getTitle() { return this->title; }
-int Item::getStock() { return this->stock; }
-float Item::getRentalFee() { return this->rentalFee; }
-bool Item::getBorrowed() { return this->borrowed; }
-void Item::setBorrowed(bool isBorrowed)
+void Item::setId(string id)
 {
-    this->borrowed = isBorrowed;
+    this->id = id;
+}
+string Item::getTitle() { return this->title; }
+void Item::setTitle(string title)
+{
+    this->title = title;
+}
+string Item::getLoanType() { return this->loanType; }
+void Item::setLoanType(string loanType)
+{
+    this->loanType = loanType;
+}
+
+int Item::getStock() { return this->stock; }
+void Item::setStock(int stock)
+{
+    this->stock = stock;
+}
+float Item::getRentalFee() { return this->rentalFee; }
+void Item::setRentalFee(float rentalFee)
+{
+    this->rentalFee = rentalFee;
+}
+bool Item::isAvaliable() { return this->avaliable; }
+void Item::setAvaliable(bool avaliable)
+{
+    this->avaliable = avaliable;
 }
 
 DVD::DVD() : Item()
@@ -37,18 +59,44 @@ DVD::DVD() : Item()
     this->genre = "Action";
 }
 
-DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
+DVD::DVD(string id, string title, string loanType, int stock, float rentalFee, string genre) : Item(id, title, loanType, stock, rentalFee)
 {
     this->genre = genre;
 }
 string DVD::getGenre() { return genre; }
 
-Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
+string DVD::toText()
+{
+    string rentalFee = to_string(this->getRentalFee());
+    int size = rentalFee.size();
+    rentalFee = rentalFee.substr(0, size - 4);
+    cout << rentalFee << endl;
+    return this->getId() + "," + this->getTitle() + ",DVD," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee + "," + this->getGenre();
+}
+
+Record::Record(string id, string title, string loanType, int stock, float rentalFee, string genre) : Item(id, title, loanType, stock, rentalFee)
 {
     this->genre = genre;
 }
-string Records::getGenre() { return genre; }
+string Record::getGenre() { return genre; }
 
-VideoGames::VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed) : Item(id, title, loanType, stock, rentalFee, borrowed)
+string Record::toText()
 {
+    string rentalFee = to_string(this->getRentalFee());
+    int size = rentalFee.size();
+    rentalFee = rentalFee.substr(0, size - 4);
+    cout << rentalFee << endl;
+    return this->getId() + "," + this->getTitle() + ",Record," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee + "," + this->getGenre();
+}
+
+VideoGames::VideoGames(string id, string title, string loanType, int stock, float rentalFee) : Item(id, title, loanType, stock, rentalFee)
+{
+}
+string VideoGames::toText()
+{
+    string rentalFee = to_string(this->getRentalFee());
+    int size = rentalFee.size();
+    rentalFee = rentalFee.substr(0, size - 4);
+    cout << rentalFee << endl;
+    return this->getId() + "," + this->getTitle() + ",Game," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee;
 }

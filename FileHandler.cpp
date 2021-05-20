@@ -1,5 +1,6 @@
 #include "FileHandler.h"
 #include "Customers.h"
+#include "Items.h"
 #include <sstream>
 #include <string>
 
@@ -143,22 +144,83 @@ bool FileHandler::isItemFile()
 	}
 }
 
-bool FileHandler::readItemFile()
+vector<Item*> FileHandler::readItemsFile()
 {
-	int count = 0;
-	string sCount;
-	ifstream _fcount;
-	_fcount.open("items.txt");
-	while (_fcount) // check if file can be open
+	string line;
+	vector<string> strBuff;
+	vector<Item*> items;
+	FileHandler fileHandler;
+
+	if (!fileHandler.isItemFile())
 	{
-		getline(_fcount, sCount); // get line from text file and store  variable
-		if (sCount == "-1")
+		cout << "isItemFile : NO" << endl;
+		return items;
+	}
+
+	ifstream _fcount; //input customers text file
+
+	_fcount.open("items.txt");
+
+	while (_fcount)
+	{
+		getline(_fcount, line); // if file is open get and store value in line
+		if (line == "-1")
 		{
-			cout << "cant open custCount count file" << endl;
-			break;
+			cout << "can't open file" << endl;
+			break; // if file is not found
 		}
-		count = stoi(sCount); // set and return count value
+		strBuff.push_back(line);
+		line = "";
 	}
 	_fcount.close();
-	return count;
+
+	for (int i = 0; i < strBuff.size(); i++)
+	{
+		if (strBuff[i][0] == 'I')
+		{
+			stringstream ss(strBuff[i]);
+			vector<string> itemVector;
+			while (ss.good())
+			{
+				string substr;
+				getline(ss, substr, ',');
+				itemVector.push_back(substr);
+			}
+
+			string type = itemVector[2];
+			cout << type << endl;
+			cout << type.length() << endl;
+			if (itemVector[2] == "Game")
+			{
+				VideoGames *videoGame = new VideoGames(itemVector[0], itemVector[1], itemVector[3], stoi(itemVector[4]), stof(itemVector[5]));
+				items.push_back(videoGame);
+			}
+			else if (itemVector[2] == "DVD")
+			{
+				DVD *dvd = new DVD(itemVector[0], itemVector[1], itemVector[3], stoi(itemVector[4]), stof(itemVector[5]), itemVector[6]);
+				items.push_back(dvd);
+			}
+			else if (itemVector[2] == "Record")
+			{
+				Record *record = new Record(itemVector[0], itemVector[1], itemVector[3], stoi(itemVector[4]), stof(itemVector[5]), itemVector[6]);
+				items.push_back(record);
+			}
+		}
+	}
+	return items;
+}
+
+bool FileHandler::writeItemsFile(vector<Item*> items)
+{
+	ofstream f;
+	f.open("items.txt");
+
+	for (int i = 0; i < items.size(); i++)
+	{
+		string line = items[i]->toText();
+		f << line << endl;
+	}
+	f.close();
+
+	return true;
 }
