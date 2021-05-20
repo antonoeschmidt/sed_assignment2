@@ -44,7 +44,7 @@ void Menu()
     cout << "Exit" << endl;
 }
 
-bool auditem()
+bool handleItem()
 {
     cout << "Choose action:" << endl
          << "(1) Add" << endl
@@ -106,7 +106,7 @@ void input()
         bool tmp;
         do
         {
-            tmp = auditem();
+            tmp = handleItem();
         } while (tmp != true);
         input();
         break;
@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
     }
 
     //UI
-    //input();
+    input();
 
     // Tests
     Test();
