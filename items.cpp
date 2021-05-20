@@ -37,11 +37,18 @@ DVD::DVD() : Item()
     this->genre = "Action";
 }
 
+Records::Records() : Item()
+{
+    this->genre = "Disco";
+}
+
 DVD::DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
     this->genre = genre;
 }
 string DVD::getGenre() { return genre; }
+
+void DVD::setGenre(string genre) {this->genre = genre;}
 
 Records::Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
@@ -49,6 +56,9 @@ Records::Records(string id, string title, string loanType, int stock, int rental
 }
 string Records::getGenre() { return genre; }
 
+void Records::setGenre(string genre) {this->genre = genre;}
+
 VideoGames::VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed) : Item(id, title, loanType, stock, rentalFee, borrowed)
 {
+    ;
 }

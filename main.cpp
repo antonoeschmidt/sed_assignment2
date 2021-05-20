@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Item addItem()
+void addItem()
 {
     Item tmp;
     enum ItemType
@@ -35,7 +35,7 @@ Item addItem()
     cin >> digit;
     cout << "Enter year published: " << endl;
     cin >> year;
-    id = "I" + id + "-" + year;
+    id = "I" + digit + "-" + year;
     cout << "Enter loan type: " << endl;
     cin >> loan;
     cout << "Enter amount: " << endl;
@@ -52,6 +52,7 @@ Item addItem()
         cout << "Enter genre: ";
         cin >> genre;
         DVD disc(id, title, loan, stock, fee, borrowed, genre);
+        disc.getGenre();
         return disc;
     }
     return tmp;
@@ -216,8 +217,6 @@ int main(int argc, char *argv[])
             cerr << "Error opening file" << endl;
             return -1;
         }*/
-
-    cout << addItem().getTitle() << endl;
     FileHandler fileHandler;
     vector<Item *> items;
     vector<Customer *> customers;

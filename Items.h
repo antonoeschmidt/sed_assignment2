@@ -41,6 +41,7 @@ private:
     string genre;
 
 public:
+    ~DVD() {;} 
     DVD();
     DVD(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre);
 
@@ -54,11 +55,12 @@ class Records : public Item
         string genre;
     
     public:
+        ~Records(){;}
         Records();
         Records(string id, string title, string loanType, int stock, int rentalFee, bool borrowed, string genre);
 
-        string getGenre();
-        void setGenre(string genre);
+    string getGenre();
+    void setGenre(string genre);
 };
 
 class VideoGames : public Item
@@ -66,7 +68,8 @@ class VideoGames : public Item
     private:
 
     public:
-        VideoGames();
+        ~VideoGames() {;}
+        VideoGames(){;};
         VideoGames(string id, string title, string loanType, int stock, int rentalFee, bool borrowed);
 };
 
