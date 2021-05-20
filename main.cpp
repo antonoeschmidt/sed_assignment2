@@ -167,8 +167,10 @@ int main(int argc, char *argv[])
     }
 
     //UI
-    input();
+    // input();
 
+
+    fileHandler.writeCustomersFile(customers);
     // Tests
     Test();
 
