@@ -38,40 +38,20 @@ Regular::Regular(string id, string name, string address, string phone)
     this->guest = false;
 }
 
-bool Regular::borrowItem(/* item here */)
+bool Regular::borrowItem()
 {
-    cout << "Borrow Item called" << endl;
+    // cout << "Borrow Item called" << item->getTitle() << endl;
 
     return false;
 }
 
-bool Regular::returnItem(/* item here */)
+bool Regular::returnItem()
 {
-    cout << "Return Item called" << endl;
+    // cout << "Return Item called" << item->getTitle() << endl;
 
     return false;
 }
 
-// -- VIP -- //
-VIP::VIP() : Customer()
-{
-    this->guest = false;
-}
-VIP::VIP(string id, string name, string address, string phone)
-    : Customer(id, name, address, phone)
-{
-    this->guest = false;
-}
-bool VIP::borrowItem(/* item here */)
-{
-    cout << "Borrow Item called" << endl;
-    return false;
-}
-bool VIP::returnItem(/* item here */)
-{
-    cout << "Return Item called" << endl;
-    return false;
-}
 
 // ---- Guest -----
 Guest::Guest() : Customer()
@@ -79,22 +59,59 @@ Guest::Guest() : Customer()
     this->guest = true;
     this->maxRental = 2;
 }
+
 Guest::Guest(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = true;
     this->maxRental = 2;
 }
-bool Guest::borrowItem(/* item here */)
+
+bool Guest::borrowItem()
 {
-    cout << "Borrow Item called" << endl;
+    if(getBorrowedList().size() > 2){
+        cerr << "guest has already borrowed too many items" << endl;
+    }
+    // if(this->getNoOfReturns() > this->getMaxRental()){
+    //     cerr << "guest has already borrowed too many items" << endl;
+    // }
+    // else{
+    //     cout << "Borrow Item called" << getTitle() << endl;
+    // }
     return false;
 }
 
-bool Guest::returnItem(/* item here */)
+bool Guest::returnItem()
 {
-    cout << "Return Item called" << endl;
+    // cout << "Return Item called" << item->getTitle() << endl;
+
     return false;
 }
-bool Guest::isGuest() { return guest; }
+
 int Guest::getMaxRental() { return maxRental; }
+
+// ----- VIP -----
+VIP::VIP() : Customer()
+{
+}
+VIP::VIP(string id, string name, string address, string phone, int reward)
+    : Customer(id, name, address, phone)
+{
+    this->reward = reward;
+}
+
+bool VIP::borrowItem()
+{
+    // cout << "Borrow Item called" << item->getTitle() << endl;
+
+    return false;
+}
+
+bool VIP::returnItem()
+{
+    // cout << "Return Item called" << item->getTitle() << endl;
+
+    return false;
+}
+
+int VIP::getReward() {return reward;}

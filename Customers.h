@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Items.h"
+#include <vector>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ private:
     string id, name, address, phone;
     vector<string> items;
     int noOfReturns;
+    vector<Item*> BorrowedList;
     bool guest;
 
 public:
@@ -25,6 +27,7 @@ public:
     string getAddress();
     string getPhone();
     int getNoOfReturns();
+    vector<Item*> getBorrowedList(){ return BorrowedList;};
     virtual bool borrowItem() = 0; // Pure virtual/abstract method
     virtual bool returnItem() = 0;
     bool isGuest();
@@ -54,22 +57,22 @@ public:
     Guest();
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
-    bool isGuest(); // does it have to be here, when it's already in Customer class?
     bool borrowItem();
     bool returnItem();
 };
 
 class VIP : public Customer
 {
-private:
-    bool guest;
-
-public:
-    VIP();
-    VIP(string id, string name, string address, string phone);
-    bool borrowItem();
-    bool returnItem();
-    // int getReward();
+    private:
+        bool guest;
+        int reward;
+    public: 
+        VIP();
+        VIP(string id, string name, string address, string phone, int reward);
+        bool borrowItem();
+        bool returnItem();
+        int getReward();
+        
 };
 
 #endif
