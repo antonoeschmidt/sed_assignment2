@@ -10,21 +10,60 @@
 
 using namespace std;
 
-bool addItem()
+void addItem()
 {
-    string Title;
-    cout << "Enter Title: ";
-    cin >> Title;
+    Item tmp;
+    enum ItemType
+    {
+        REC = 1,
+        DIS = 2,
+        GA = 3
+    };
+    string title;
+    string digit;
+    bool borrowed = false;
     string id;
-    cout << "Enter Item 3-digit code: ";
-
+    string year;
+    string loan;
+    float fee;
+    int stock;
+    int type;
+    string genre;
+    cout << "Enter Title: " << endl;
+    getline(cin, title);
+    cout << "Enter Item 3-digit code: " << endl;
+    cin >> digit;
+    cout << "Enter year published: " << endl;
+    cin >> year;
+    id = "I" + digit + "-" + year;
+    cout << "Enter loan type: " << endl;
+    cin >> loan;
+    cout << "Enter amount: " << endl;
+    cin >> stock;
+    cout << "Enter rental fee: " << endl;
+    cin >> fee;
     cout << "Select Item Type: " << endl
          << "(1) Record" << endl
          << "(2) DVD" << endl
          << "(3) Game" << endl;
-    string type;
-
-    return true;
+    cin >> type;
+    if (type == DIS)
+    {
+        cout << "Enter genre: ";
+        cin >> genre;
+        DVD disc(id, title, loan, stock, fee, borrowed, genre);
+    }
+    if (type == REC)
+    {
+        cout << "Enter genre: ";
+        cin >> genre;
+        Records record(id, title, loan, stock, fee, borrowed, genre);
+    }
+    if (type == GA)
+    {
+        VideoGames vidya(id, title, loan, stock, fee, borrowed);
+    }
+    return;
 }
 
 void Menu()
@@ -61,7 +100,6 @@ bool handleItem()
     catch (const invalid_argument)
     {
         cerr << "Invalid input";
-        return false;
     }
     if (tmp >= 0 && tmp <= 3)
     {
@@ -73,6 +111,38 @@ bool handleItem()
             addItem();
         case 2:;
         case 3:;
+        }
+    }
+    return false;
+}
+
+bool handleCustomer()
+{
+    cout << "Choose action:" << endl
+         << "(1) Add" << endl
+         << "(2) Update" << endl
+         << "(0) Back to menu" << endl;
+    string a;
+    int tmp;
+    cin >> a;
+    try
+    {
+        tmp = stoi(a);
+    }
+    catch (const invalid_argument)
+    {
+        cerr << "Invalid input";
+        return false;
+    }
+    if (tmp >= 0 && tmp <= 3)
+    {
+        switch (tmp)
+        {
+        case 0:
+            return true;
+        case 1:
+            addItem();
+        case 2:;
         }
     }
     return false;
