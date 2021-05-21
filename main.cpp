@@ -170,16 +170,26 @@ void deleteItem(vector<Item *> items)
     cout << "Items:" << endl;
     displayItem(items);
     cout << "Enter ID of Item that should be deleted:" << endl;
-    cin >> itemId;
-
-    for (int i = 0; i < items.size(); i++)
+    bool found = false;
+    while (!found)
     {
-        if (items[i]->getId() == itemId)
+        cin >> itemId;
+        if (itemId == "0")
+            break;
+
+        for (int i = 0; i < items.size(); i++)
         {
-            cout << "found you" << endl;
-            items.erase(items.begin() + i);
+            if (items[i]->getId() == itemId)
+            {
+                items.erase(items.begin() + i);
+                found = true;
+                cout << "Item with ID: " << items[i]->getId() << " deleted" << endl;
+            }
         }
+        if (!found)
+            cout << "Item not found. Please try another item or exit by typing 0." << endl;
     }
+
     fileHandler.writeItemsFile(items);
 }
 
@@ -191,18 +201,12 @@ void addItem(vector<Item *> items)
         DIS = 2,
         GA = 3
     };
-    string title;
-    string digit;
+    string title, digit, id, year, loan, genre;
     bool borrowed = false;
-    string id;
-    string year;
-    string loan;
     float fee;
-    int stock;
-    int type;
-    string genre;
-    cin.ignore(1, '\n');
-    cout << "Enter Title: ";
+    int stock, type;
+    cin.ignore(1, '\n')
+    cout << "Enter Title: " << endl;
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
     cin >> digit;
@@ -241,7 +245,7 @@ void addItem(vector<Item *> items)
         << "(1) Record" << endl
         << "(2) DVD" << endl
         << "(3) Game" << endl;
-        cin >> type;        
+        cin >> type;
     }
     if (type == DIS)
     {
@@ -307,8 +311,8 @@ void addCustomer(vector<Customer *> Customers)
     cin >> type;
     if (type == VI)
     {
-    //cout << "Enter  ";
-    //    cin >> genre;
+        //cout << "Enter  ";
+        //    cin >> genre;
         VIP *vip = new VIP(id, name, address, phone);
         Customers.push_back(vip);
         fileHandler.writeCustomersFile(Customers);
@@ -316,22 +320,21 @@ void addCustomer(vector<Customer *> Customers)
     }
     if (type == REG)
     {
-    //    cout << "Enter genre: ";
-    //    cin >> genre;
-    Regular *reg = new Regular(id, name, address, phone);
+        //    cout << "Enter genre: ";
+        //    cin >> genre;
+        Regular *reg = new Regular(id, name, address, phone);
         Customers.push_back(reg);
         fileHandler.writeCustomersFile(Customers);
         delete reg;
     }
     if (type == GUE)
     {
-    Guest *guest = new Guest(id, name, address, phone);
+        Guest *guest = new Guest(id, name, address, phone);
         Customers.push_back(guest);
         fileHandler.writeCustomersFile(Customers);
         delete guest;
     }
-    
-    
+
     fileHandler.writeCustomersFile(Customers);
 }
 
@@ -420,12 +423,92 @@ bool handleCustomer()
         {
         case 0:
             return true;
+            break;
         case 1:
             // addItem();
-        case 2:;
+            break;
+        case 2:
+            break;
         }
     }
     return false;
+}
+
+void rentItem()
+{
+    vector<Customer *> customers = fileHandler.readCustomerFile();
+    vector<Item *> items = fileHandler.readItemsFile();
+    string customerId, itemId;
+    bool found = false;
+
+    displayItem(items);
+    cout << "Enter ID of Item that you wants to be rented: ";
+    while (!found)
+    {
+        bool outOfStock = false;
+        cin >> itemId;
+        if (itemId == "0")
+            break;
+
+        for (int i = 0; i < items.size(); i++)
+        {
+            if (items[i]->getId() == itemId)
+            {
+                if (items[i]->getStock() < 1)
+                {
+                    cout << "Item is unfortunately out of stock. Please choose another: ";
+                    outOfStock = true;
+                }
+                else
+                {
+                    itemId = items[i]->getId();
+                    found = true;
+                    cout << "Item with ID: " << items[i]->getId() << " chosen" << endl;
+                }
+            }
+        }
+        if (!found && !outOfStock)
+            cout << "Item not found. Please try another item or exit by typing 0." << endl;
+    }
+
+    found = false;
+
+    displayCustomer(customers);
+    cout << "Enter ID of the customer that will rent this item: ";
+    while (!found)
+    {
+        bool success = false;
+        cin >> customerId;
+        if (customerId == "0")
+            break;
+
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customers[i]->getId() == customerId)
+            {
+                success = customers[i]->borrowItem(itemId);
+                if (success)
+                {
+                    found = true;
+                    for (int i = 0; i < items.size(); i++)
+                    {
+                        if (items[i]->getId() == itemId)
+                        {
+                            items[i]->setStock(items[i]->getStock() - 1);
+                        }
+                    }
+                }
+                else
+                {
+                    cout << "Renting was unsucessful. Please try again." << endl;
+                }
+            }
+        }
+        // if (!found && !success)
+        //     cout << "Item not found. Please try another item or exit by typing 0." << endl;
+    }
+    fileHandler.writeCustomersFile(customers);
+    fileHandler.writeItemsFile(items);
 }
 
 void input()
@@ -462,6 +545,13 @@ void input()
             handleItem();
             break;
         case 2:
+            handleCustomer();
+            break;
+        case 4:
+            rentItem();
+            break;
+        case 6:
+            displayItem(fileHandler.readItemsFile());
             break;
         default:
             cerr << "Incorrect Use";
