@@ -716,6 +716,7 @@ void rentItem()
     vector<Item *> items = fileHandler.readItemsFile(itemFile);
     string customerId, itemId;
     bool found = false;
+    bool weekLoan = false;
 
     displayItem(items);
     cout << "Enter ID of Item that you wants to be rented: ";
@@ -739,6 +740,7 @@ void rentItem()
                 {
                     itemId = items[i]->getId();
                     found = true;
+                    weekLoan = items[i]->getLoanType() == "1-week";
                     cout << "Item with ID: " << items[i]->getId() << " chosen" << endl;
                 }
             }
@@ -761,6 +763,10 @@ void rentItem()
         {
             if (customers[i]->getId() == customerId)
             {
+                if (customers[i]->getcustomerType() == "Guest" && !weekLoan) {
+                    cout << "Sorry only Regular and VIP customers can rent 2-day loans. Please try again" << endl;
+                    return;
+                } 
                 success = customers[i]->borrowItem(itemId);
                 if (success)
                 {
