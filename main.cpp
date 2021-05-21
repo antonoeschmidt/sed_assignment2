@@ -26,6 +26,48 @@ Item *searchItemByID(vector<Item *> items, string input)
     return tmp;
 }
 
+Customer *searchCustomerByID(vector<Customer *> customers, string input)
+{
+    Customer *tmp = NULL;
+    for (auto &i : customers)
+    {
+        if (input == i->getId())
+        {
+            return i;
+        }
+    }
+    cout << "No customer found!" << endl;
+    return tmp;
+}
+
+Customer *searchCustomerByName(vector<Customer *> customers, string input)
+{
+    Customer *tmp = NULL;
+    for (auto &i : customers)
+    {
+        if (input == i->getName())
+        {
+            return i;
+        }
+    }
+    cout << "No customer found!" << endl;
+    return tmp;
+}
+
+Item *searchItemByName(vector<Item *> items, string input)
+{
+    Item *tmp = NULL;
+    for (auto &i : items)
+    {
+        if (input == i->getTitle())
+        {
+            return i;
+        }
+    }
+    cout << "No item found!" << endl;
+    return tmp;
+}
+
 void displayOutOfStockItem(vector<Item *> items)
 {
 
@@ -82,7 +124,8 @@ void displayCustomer(vector<Customer *> customers)
         cout << "ID: " << i->getId() << " | "
              << "Name: " << i->getName() << " | "
              << "Address: " << i->getAddress() << " | "
-             << "Phone Number: " << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+             << "Phone Number: " << i->getPhone() << " | "
+             << "Account Type: " << i->getcustomerType() << endl;
         vector<string> items = i->getItems();
         if (items.size() > 0)
         {
@@ -105,7 +148,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -125,7 +169,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -145,7 +190,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -334,7 +380,8 @@ void addItem(vector<Item *> items)
         cerr << "Invalid input" << endl;
         return;
     }
-    while(id_code.size() != 3){
+    while (id_code.size() != 3)
+    {
         cerr << "Incorrect code format" << endl;
         cout << "Enter Item 3-digit code: " << endl;
         cin >> id_code;
@@ -345,7 +392,7 @@ void addItem(vector<Item *> items)
     {
         year_int = stoi(year);
     }
-    catch(const invalid_argument)
+    catch (const invalid_argument)
     {
         cerr << "Invalid year" << endl;
         return;
@@ -359,7 +406,7 @@ void addItem(vector<Item *> items)
         {
             year_int = stoi(year);
         }
-        catch(const invalid_argument)
+        catch (const invalid_argument)
         {
             cerr << "Invalid year";
             return;
@@ -387,27 +434,28 @@ void addItem(vector<Item *> items)
     {
         item_type_int = stoi(item_type);
     }
-    catch(const invalid_argument)
+    catch (const invalid_argument)
     {
         cerr << "Invalid Item Type";
         return;
-    }    
-    while(item_type_int != DIS && item_type_int != REC && item_type_int != GA){
+    }
+    while (item_type_int != DIS && item_type_int != REC && item_type_int != GA)
+    {
         cerr << "Incorrect Item Type" << endl;
         cout << "Select Item Type: " << endl
-        << "(1) Record" << endl
-        << "(2) DVD" << endl
-        << "(3) Game" << endl;
+             << "(1) Record" << endl
+             << "(2) DVD" << endl
+             << "(3) Game" << endl;
         cin >> item_type;
         try
         {
             item_type_int = stoi(item_type);
         }
-        catch(const invalid_argument)
+        catch (const invalid_argument)
         {
             cerr << "Invalid Item Type";
             return;
-        }    
+        }
     }
     if (stoi(item_type) == DIS)
     {
@@ -436,6 +484,131 @@ void addItem(vector<Item *> items)
     }
 }
 
+void searchItem(vector<Item *> items)
+{
+    string input;
+    int choice;
+    cout << "Choose search method" << endl;
+    cout << "1. Search by ID" << endl;
+    cout << "2. Search by Name" << endl;
+    cout << "0. Exit" << endl;
+    cin >> input;
+
+    try
+    {
+        choice = stoi(input);
+    }
+    catch (const invalid_argument)
+    {
+        cerr << "Invalid Item Type";
+        return;
+    }
+    if (choice == 1)
+    {
+        Item *tmp = NULL;
+        cout << "Enter ID: ";
+        cin >> input;
+        tmp = searchItemByID(items, input);
+        if(tmp != NULL)
+        {
+        cout << "ID: " << tmp->getId() << " | "
+             << "Title:" << tmp->getTitle() << " | "
+             << "Rental Type: " << tmp->getRentalType() << " | "
+             << "Loan Type:" << tmp->getLoanType() << " | "
+             << "Stock:" << tmp->getStock() << " | "
+             << "Fee: " << tmp->getRentalFee() << " USD"
+             << " | "
+             << "Available: " << boolalpha << tmp->isAvaliable() << endl;
+        return;
+        }
+    }
+    if (choice == 2)
+    {
+        Item *tmp = NULL;
+        cout << "Enter name: ";
+        cin.ignore(1, '\n');
+        getline(cin, input);
+        tmp = searchItemByName(items, input);
+        if(tmp != NULL)
+        {
+        cout << "ID: " << tmp->getId() << " | "
+             << "Title:" << tmp->getTitle() << " | "
+             << "Rental Type: " << tmp->getRentalType() << " | "
+             << "Loan Type:" << tmp->getLoanType() << " | "
+             << "Stock:" << tmp->getStock() << " | "
+             << "Fee: " << tmp->getRentalFee() << " USD"
+             << " | "
+             << "Available: " << boolalpha << tmp->isAvaliable() << endl;
+        return;
+        }
+    }
+    if (choice == 0)
+    {
+        return;
+    }
+    return;
+}
+
+void searchCustomer(vector<Customer *> customers)
+{
+    string input;
+    int choice;
+    cout << "Choose search method" << endl;
+    cout << "1. Search by ID" << endl;
+    cout << "2. Search by Name" << endl;
+    cout << "0. Exit" << endl;
+    cin >> input;
+
+    try
+    {
+        choice = stoi(input);
+    }
+    catch (const invalid_argument)
+    {
+        cerr << "Invalid Item Type";
+        return;
+    }
+    if (choice == 1)
+    {
+        Customer *tmp = NULL;
+        cout << "Enter ID: ";
+        cin >> input;
+        tmp = searchCustomerByID(customers, input);
+        if(tmp != NULL)
+        {
+        cout << "ID: " << tmp->getId() << " | "
+             << "Name:" << tmp->getName() << " | "
+             << "Address:" << tmp->getAddress() << " | "
+             << "Phone Number:" << tmp->getPhone() << " | "
+             << "Account Type: " << tmp->getcustomerType() << endl;
+        return;
+        }
+
+    }
+    if (choice == 2)
+    {
+        Customer *tmp = NULL;
+        cout << "Enter name: ";
+        cin.ignore(1, '\n');
+        getline(cin, input);
+        tmp = searchCustomerByName(customers, input);
+        if(tmp != NULL)
+        {
+        cout << "ID: " << tmp->getId() << " | "
+             << "Name:" << tmp->getName() << " | "
+             << "Address:" << tmp->getAddress() << " | "
+             << "Phone Number:" << tmp->getPhone() << " | "
+             << "Account Type: " << tmp->getcustomerType() << endl;
+        return;
+        }
+    }
+    if (choice == 0)
+    {
+        return;
+    }
+    return;
+}
+
 void addCustomer(vector<Customer *> Customers)
 {
     enum CustomerType
@@ -453,20 +626,23 @@ void addCustomer(vector<Customer *> Customers)
     {
         id_int = stoi(id);
     }
-    catch(const invalid_argument){
+    catch (const invalid_argument)
+    {
         cerr << "Invalid ID";
         return;
-    }    
-    while(id.size() != 3){
+    }
+    while (id.size() != 3)
+    {
         cerr << "ID must be 3-digit" << endl;
         cin >> id;
         try
         {
             id_int = stoi(id);
         }
-        catch(const invalid_argument){
+        catch (const invalid_argument)
+        {
             cerr << "Invalid ID";
-        }    
+        }
     }
     cout << "Enter Name: " << endl;
     cin >> name;
@@ -486,18 +662,19 @@ void addCustomer(vector<Customer *> Customers)
     {
         type_int = stoi(type);
     }
-    catch(const invalid_argument)
+    catch (const invalid_argument)
     {
         cerr << "Invalid Type";
         return;
     }
-    while(type_int != VI && type_int != REG && type_int != GUE){
+    while (type_int != VI && type_int != REG && type_int != GUE)
+    {
         cerr << "Incorrect Customer Type" << endl;
         cout << "Select Customer Type: " << endl
-         << "(1) VIP" << endl
-         << "(2) Regular" << endl
-         << "(3) Guest" << endl;
-        cin >> type;        
+             << "(1) VIP" << endl
+             << "(2) Regular" << endl
+             << "(3) Guest" << endl;
+        cin >> type;
     }
     if (type_int == VI)
     {
@@ -619,7 +796,7 @@ bool handleCustomer()
             return true;
             break;
         case 1:
-            // addItem();
+            //addCustomer(cusomterfile);
             break;
         case 2:
             break;
@@ -673,13 +850,13 @@ void returnItem()
         for (int i = 0; i < customerItems.size(); i++)
         {
 
-            cout << customerItems[i].substr(0,9).size() << endl;
-            cout << itemId.substr(0,9).size() << endl;
-            cout << (customerItems[i].substr(0,9) == itemId.substr(0,9)) << endl;
-            if (customerItems[i].substr(0,9) == itemId.substr(0,9))
+            cout << customerItems[i].substr(0, 9).size() << endl;
+            cout << itemId.substr(0, 9).size() << endl;
+            cout << (customerItems[i].substr(0, 9) == itemId.substr(0, 9)) << endl;
+            if (customerItems[i].substr(0, 9) == itemId.substr(0, 9))
             {
                 found = true;
-                customer->returnItem(itemId.substr(0,9));
+                customer->returnItem(itemId.substr(0, 9));
                 for (int i = 0; i < items.size(); i++)
                 {
                     if (items[i]->getId() == itemId)
@@ -829,43 +1006,75 @@ void input()
         case 9:
             displayCustomerGroup(fileHandler.readCustomerFile());
             break;
-        default:
-            cerr << "Incorrect Use";
-            break;
+        case 10:
+            cout << "Choose type:" << endl;
+            cout << "1. Item" << endl;
+            cout << "2. Name" << endl;
+            cout << "0. Exit" << endl;
+            string input;
+            int choice;
+            cin >> input;
+            try
+            {
+                choice = stoi(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input";
+                break;
+            }
+            if (choice == 1)
+            {
+                searchItem(fileHandler.readItemsFile());
+                break;
+            }
+            else if (choice == 2)
+            {
+                searchCustomer(fileHandler.readCustomerFile());
+                break;
+            }
+            else if (choice == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid choice" << endl;
+                break;
+            }
         }
     }
 }
-
-int main(int argc, char *argv[])
-{
-
-    // Checks if the program is executed in the correct format
-    if (argc != 2)
+    int main(int argc, char *argv[])
     {
-        cout << "Invalid amount of argument";
-        return -1;
+
+        // Checks if the program is executed in the correct format
+        if (argc != 2)
+        {
+            cout << "Invalid amount of argument";
+            return -1;
+        }
+        //Opening the file and checking if it's opened properly
+        fstream infile(argv[1]);
+        if (!infile)
+        {
+            cerr << "Error opening file" << endl;
+            return -1;
+        }
+
+        // FileHandler fileHandler;
+        // vector<Item *> items;
+        // vector<Customer *> customers;
+
+        // customers = fileHandler.readCustomerFile();
+        // displayCustomer(customers);
+
+        // items = fileHandler.readItemsFile();
+        // displayItem(items);
+
+        // //UI
+        // items = fileHandler.readItemsFile();
+        input();
+
+        return 0;
     }
-    //Opening the file and checking if it's opened properly
-    fstream infile(argv[1]);
-    if (!infile)
-    {
-        cerr << "Error opening file" << endl;
-        return -1;
-    }
-
-    // FileHandler fileHandler;
-    // vector<Item *> items;
-    // vector<Customer *> customers;
-
-    // customers = fileHandler.readCustomerFile();
-    // displayCustomer(customers);
-
-    // items = fileHandler.readItemsFile();
-    // displayItem(items);
-
-    // //UI
-    // items = fileHandler.readItemsFile();
-    input();
-
-    return 0;
-}
