@@ -49,16 +49,10 @@ bool FileHandler::writeCustomersFile(vector<Customer *> customers) // write to c
 
 vector<Customer *> FileHandler::readCustomerFile() // function read customer file
 {
-	int len = 0;
 	string line;
-	string temp;
-	string collectBuff = "";
 	vector<string> strBuff;
 	vector<Customer *> customers;
 	FileHandler FileHandler;
-
-	//write to customer file
-	//FileHandler.writeCustomerFile();
 
 	if (!FileHandler.isCustomerFile())
 	{
@@ -79,7 +73,7 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 			break; // if file is not found
 		}
 		strBuff.push_back(line);
-		line = "";
+		// line = "";
 	}
 	_fcount.close();
 
@@ -108,7 +102,7 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 				Guest *guest = new Guest(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(guest);
 			}
-			else if (customerVector[5]/*.substr(0, subStrLength)*/ == "Regular")
+			else if (customerVector[5] /*.substr(0, subStrLength)*/ == "Regular")
 			{
 				Regular *regular = new Regular(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(regular);
@@ -117,7 +111,9 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 			{
 				VIP *vip = new VIP(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(vip);
-			} else {
+			}
+			else
+			{
 				cout << "No type found. Error." << endl;
 			}
 		}

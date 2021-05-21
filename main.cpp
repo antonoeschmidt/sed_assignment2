@@ -12,9 +12,9 @@ using namespace std;
 
 FileHandler fileHandler;
 
-Item* searchItemByID(vector<Item *> items ,string input)
+Item *searchItemByID(vector<Item *> items, string input)
 {
-    Item* tmp = NULL;
+    Item *tmp = NULL;
     for (auto &i : items)
     {
         if (input == i->getId())
@@ -64,7 +64,7 @@ void displayCustomer(vector<Customer *> customers)
     cout << "-----------------------------" << endl;
 }
 
-void updateItem(Item *item, vector<Item *>itemslist)
+void updateItem(Item *item, vector<Item *> itemslist)
 {
     bool exit = false;
     while (!exit)
@@ -231,14 +231,16 @@ void addItem(vector<Item *> items)
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
     cin >> digit;
-    while(digit.size() != 3){
+    while (digit.size() != 3)
+    {
         cerr << "Incorrect code format" << endl;
         cout << "Enter Item 3-digit code: " << endl;
         cin >> digit;
     }
     cout << "Enter year published: " << endl;
     cin >> year;
-    while(year.size() != 4){
+    while (year.size() != 4)
+    {
         cerr << "year has to have format yyyy" << endl;
         cout << "Enter year published: " << endl;
         cin >> year;
@@ -246,7 +248,8 @@ void addItem(vector<Item *> items)
     id = "I" + digit + "-" + year;
     cout << "Enter loan type: " << endl;
     cin >> loan;
-    while(loan != "2-day" && loan != "1-week"){
+    while (loan != "2-day" && loan != "1-week")
+    {
         cerr << "loan has to be either '2-day' or '1-week'" << endl;
         cout << "Enter loan type: " << endl;
         cin >> loan;
@@ -260,12 +263,13 @@ void addItem(vector<Item *> items)
          << "(2) DVD" << endl
          << "(3) Game" << endl;
     cin >> type;
-    while(type != DIS && type != REC && type != GA){
+    while (type != DIS && type != REC && type != GA)
+    {
         cerr << "Incorrect Item Type" << endl;
         cout << "Select Item Type: " << endl
-        << "(1) Record" << endl
-        << "(2) DVD" << endl
-        << "(3) Game" << endl;
+             << "(1) Record" << endl
+             << "(2) DVD" << endl
+             << "(3) Game" << endl;
         cin >> type;
     }
     if (type == DIS)
@@ -295,8 +299,6 @@ void addItem(vector<Item *> items)
     }
 }
 
-
-
 void addCustomer(vector<Customer *> Customers)
 {
     enum CustomerType
@@ -314,7 +316,8 @@ void addCustomer(vector<Customer *> Customers)
     int type;
     cout << "Enter Id: " << endl;
     cin >> id;
-    while(id.size() != 3){
+    while (id.size() != 3)
+    {
         cerr << "ID must be 3-digit" << endl;
         cin >> id;
     }
@@ -419,9 +422,9 @@ bool handleItem()
                 displayItem(items);
                 cout << "Enter ID of item to update: ";
                 cin >> a;
-                if(searchItemByID(items,a) != NULL)
+                if (searchItemByID(items, a) != NULL)
                 {
-                    updateItem(searchItemByID(items,a),items);
+                    updateItem(searchItemByID(items, a), items);
                 }
                 break;
             }
@@ -463,6 +466,75 @@ bool handleCustomer()
         }
     }
     return false;
+}
+
+void returnItem()
+{
+    vector<Customer *> customers = fileHandler.readCustomerFile();
+    vector<Item *> items = fileHandler.readItemsFile();
+    vector<string> customerItems;
+    Customer *customer;
+    string customerId, itemId;
+    bool found = false;
+
+    displayCustomer(customers);
+    cout << "Enter ID of the customer that will return an item: ";
+    while (!found)
+    {
+        cin >> customerId;
+        if (customerId == "0")
+            break;
+
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customers[i]->getId() == customerId)
+            {
+                customer = customers[i];
+                customerItems = customers[i]->getItems();
+                found = true;
+            }
+        }
+        if (!found)
+            cout << "Customer not found. Please try again or exit by typing 0" << endl;
+    }
+    found = false;
+
+    cout << "Enter ID of Item that you wants to be returned:" << endl;
+    for (int i = 0; i < customerItems.size(); i++)
+    {
+        cout << customerItems[i] << endl;
+    }
+    while (!found)
+    {
+        cin >> itemId;
+        if (itemId == "0")
+            break;
+
+        for (int i = 0; i < customerItems.size(); i++)
+        {
+
+            cout << customerItems[i].substr(0,9).size() << endl;
+            cout << itemId.substr(0,9).size() << endl;
+            cout << (customerItems[i].substr(0,9) == itemId.substr(0,9)) << endl;
+            if (customerItems[i].substr(0,9) == itemId.substr(0,9))
+            {
+                found = true;
+                customer->returnItem(itemId.substr(0,9));
+                for (int i = 0; i < items.size(); i++)
+                {
+                    if (items[i]->getId() == itemId)
+                    {
+                        items[i]->setStock(items[i]->getStock() + 1);
+                    }
+                }
+            }
+        }
+        if (!found)
+            cout << "Item not found. Please try another item or exit by typing 0." << endl;
+    }
+
+    fileHandler.writeCustomersFile(customers);
+    fileHandler.writeItemsFile(items);
 }
 
 void rentItem()
@@ -526,6 +598,7 @@ void rentItem()
                         if (items[i]->getId() == itemId)
                         {
                             items[i]->setStock(items[i]->getStock() - 1);
+                            items[i]->setAvaliable(items[i]->getStock() > 0);
                         }
                     }
                 }
@@ -580,6 +653,9 @@ void input()
             break;
         case 4:
             rentItem();
+            break;
+        case 5:
+            returnItem();
             break;
         case 6:
             displayItem(fileHandler.readItemsFile());

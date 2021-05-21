@@ -31,6 +31,8 @@ public:
     bool isGuest();
     vector<string> getItems();
     void populateBorrowedItems(string itemId);
+    void removeBorrowedItems(string itemId);
+
 };
 
 class Regular : public Customer
