@@ -114,9 +114,9 @@ void updateItem(Item *item, vector<Item *>itemslist)
                 cerr << "Invalid input" << endl;
                 break;
             }
-            if (digit <= 100 || digit >= 999)
+            if (input.size() != 3)
             {
-                cerr << "Digit must be a continous three digit" << endl;
+                cerr << "ID must be 3-digit" << endl;
                 break;
             }
             cout << "Enter year published: ";
@@ -222,19 +222,27 @@ void addItem(vector<Item *> items)
         DIS = 2,
         GA = 3
     };
-    string title, digit, id, year, loan, genre;
+    string title, id_code, id, year, loan, genre, item_type;
     bool borrowed = false;
     float fee;
-    int stock, type;
+    int stock, item_type_int, id_code_int;
     cin.ignore(1, '\n');
     cout << "Enter Title: " << endl;
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
-    cin >> digit;
-    while(digit.size() != 3){
+    cin >> id_code;
+    try
+    {
+        id_code_int = stoi(id_code);
+    }
+    catch (const invalid_argument)
+    {
+        cerr << "Invalid input" << endl;
+    }
+    while(id_code.size() != 3){
         cerr << "Incorrect code format" << endl;
         cout << "Enter Item 3-digit code: " << endl;
-        cin >> digit;
+        cin >> id_code;
     }
     cout << "Enter year published: " << endl;
     cin >> year;
@@ -243,7 +251,7 @@ void addItem(vector<Item *> items)
         cout << "Enter year published: " << endl;
         cin >> year;
     }
-    id = "I" + digit + "-" + year;
+    id = "I" + id_code + "-" + year;
     cout << "Enter loan type: " << endl;
     cin >> loan;
     while(loan != "2-day" && loan != "1-week"){
@@ -259,16 +267,32 @@ void addItem(vector<Item *> items)
          << "(1) Record" << endl
          << "(2) DVD" << endl
          << "(3) Game" << endl;
-    cin >> type;
-    while(type != DIS && type != REC && type != GA){
+    cin >> item_type;
+    try
+    {
+        item_type_int = stoi(item_type);
+    }
+    catch(const invalid_argument)
+    {
+        cerr << "Invalid Item Type";
+    }    
+    while(item_type_int != DIS && item_type_int != REC && item_type_int != GA){
         cerr << "Incorrect Item Type" << endl;
         cout << "Select Item Type: " << endl
         << "(1) Record" << endl
         << "(2) DVD" << endl
         << "(3) Game" << endl;
-        cin >> type;
+        cin >> item_type;
+        try
+        {
+            item_type_int = stoi(item_type);
+        }
+        catch(const invalid_argument)
+        {
+            cerr << "Invalid Item Type";
+        }    
     }
-    if (type == DIS)
+    if (stoi(item_type) == DIS)
     {
         cout << "Enter genre: ";
         cin >> genre;
@@ -277,7 +301,7 @@ void addItem(vector<Item *> items)
         fileHandler.writeItemsFile(items);
         delete disc;
     }
-    if (type == REC)
+    if (stoi(item_type) == REC)
     {
         cout << "Enter genre: ";
         cin >> genre;
@@ -286,7 +310,7 @@ void addItem(vector<Item *> items)
         fileHandler.writeItemsFile(items);
         delete record;
     }
-    if (type == GA)
+    if (stoi(item_type) == GA)
     {
         VideoGames *videoGame = new VideoGames(id, title, loan, stock, fee);
         items.push_back(videoGame);
@@ -305,18 +329,28 @@ void addCustomer(vector<Customer *> Customers)
         REG = 2,
         GUE = 3
     };
-    string id;
-    string name;
-    string address;
-    string phone;
-    int noOfReturn;
+    string id, name, address, phone, type;
+    int noOfReturn, id_int, type_int;
     bool guest;
-    int type;
     cout << "Enter Id: " << endl;
     cin >> id;
+    try
+    {
+        id_int = stoi(id);
+    }
+    catch(const invalid_argument){
+        cerr << "Invalid ID";
+    }    
     while(id.size() != 3){
         cerr << "ID must be 3-digit" << endl;
         cin >> id;
+        try
+        {
+            id_int = stoi(id);
+        }
+        catch(const invalid_argument){
+            cerr << "Invalid ID";
+        }    
     }
     cout << "Enter Name: " << endl;
     cin >> name;
@@ -332,7 +366,15 @@ void addCustomer(vector<Customer *> Customers)
          << "(2) Regular" << endl
          << "(3) Guest" << endl;
     cin >> type;
-    while(type != VI && type != REG && type != GUE){
+    try
+    {
+        type_int = stoi(type);
+    }
+    catch(const invalid_argument)
+    {
+        cerr << "Invalid Type";
+    }
+    while(type_int != VI && type_int != REG && type_int != GUE){
         cerr << "Incorrect Customer Type" << endl;
         cout << "Select Customer Type: " << endl
          << "(1) VIP" << endl
@@ -340,21 +382,21 @@ void addCustomer(vector<Customer *> Customers)
          << "(3) Guest" << endl;
         cin >> type;        
     }
-    if (type == VI)
+    if (type_int == VI)
     {
         VIP *vip = new VIP(id, name, address, phone);
         Customers.push_back(vip);
         fileHandler.writeCustomersFile(Customers);
         delete vip;
     }
-    if (type == REG)
+    if (type_int == REG)
     {
-    Regular *reg = new Regular(id, name, address, phone);
+        Regular *reg = new Regular(id, name, address, phone);
         Customers.push_back(reg);
         fileHandler.writeCustomersFile(Customers);
         delete reg;
     }
-    if (type == GUE)
+    if (type_int == GUE)
     {
         Guest *guest = new Guest(id, name, address, phone);
         Customers.push_back(guest);
