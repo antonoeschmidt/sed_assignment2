@@ -12,6 +12,20 @@ using namespace std;
 
 FileHandler fileHandler;
 
+Item* searchItemByID(vector<Item *> items ,string input)
+{
+    Item* tmp = NULL;
+    for (auto &i : items)
+    {
+        if (input == i->getId())
+        {
+            return i;
+        }
+    }
+    cout << "No item found!" << endl;
+    return tmp;
+}
+
 void displayItem(vector<Item *> items)
 {
     cout << "----------Item List----------" << endl;
@@ -50,17 +64,17 @@ void displayCustomer(vector<Customer *> customers)
     cout << "-----------------------------" << endl;
 }
 
-void updateItem(Item *items)
+void updateItem(Item *item, vector<Item *>itemslist)
 {
     bool exit = false;
     while (!exit)
     {
         cout << "Select aspect to change:" << endl;
-        cout << "1. ID: " << items->getId() << endl;
-        cout << "2. Title " << items->getTitle() << endl;
-        cout << "3. Loan Type: " << items->getLoanType() << endl;
-        cout << "4. Stock: " << items->getStock() << endl;
-        cout << "5. Rental Fee: " << items->getRentalFee() << endl;
+        cout << "1. ID: " << item->getId() << endl;
+        cout << "2. Title " << item->getTitle() << endl;
+        cout << "3. Loan Type: " << item->getLoanType() << endl;
+        cout << "4. Stock: " << item->getStock() << endl;
+        cout << "5. Rental Fee: " << item->getRentalFee() << endl;
         cout << "|0.Exit|" << endl;
         string choice, input;
         float fee;
@@ -116,18 +130,23 @@ void updateItem(Item *items)
                 cerr << "Invalid input" << endl;
                 break;
             }
-            input = 'I' + digit + '-' + year;
-            items->setId(input);
+            input = "I" + to_string(digit) + "-" + to_string(year);
+            item->setId(input);
+            fileHandler.writeItemsFile(itemslist);
             break;
         case 2:
             cout << "Enter new title: ";
-            cin >> input;
-            items->setId(input);
+            cin.ignore(1, '\n');
+            getline(cin, input);
+            item->setTitle(input);
+            fileHandler.writeItemsFile(itemslist);
             break;
         case 3:
             cout << "Enter loan type: ";
-            cin >> input;
-            items->setLoanType(input);
+            cin.ignore(1, '\n');
+            getline(cin, input);
+            item->setLoanType(input);
+            fileHandler.writeItemsFile(itemslist);
             break;
         case 4:
             cout << "Enter amount in stock: ";
@@ -141,7 +160,8 @@ void updateItem(Item *items)
                 cerr << "Invalid input" << endl;
                 break;
             }
-            items->setStock(digit);
+            item->setStock(digit);
+            fileHandler.writeItemsFile(itemslist);
             break;
         case 5:
             cout << "Enter rental fee: " << endl;
@@ -149,14 +169,15 @@ void updateItem(Item *items)
             try
             {
                 fee = stof(input);
-            }
+            } 
             catch (const invalid_argument)
             {
                 cerr << "Invalid input" << endl;
                 break;
             }
+            item->setRentalFee(fee);
+            fileHandler.writeItemsFile(itemslist);
             break;
-            items->setRentalFee(fee);
         default:
             cerr << "Incorrect Use";
             break;
@@ -245,10 +266,6 @@ void addItem(vector<Item *> items)
         fileHandler.writeItemsFile(items);
         delete videoGame;
     }
-}
-
-void deleteItem(vector<Item *> items)
-{
 }
 
 
@@ -368,7 +385,15 @@ bool handleItem()
             case 2:
                 deleteItem(items);
                 break;
-            case 3:;
+            case 3:
+                displayItem(items);
+                cout << "Enter ID of item to update: ";
+                cin >> a;
+                if(searchItemByID(items,a) != NULL)
+                {
+                    updateItem(searchItemByID(items,a),items);
+                }
+                break;        
             }
         }
     }
