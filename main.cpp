@@ -87,7 +87,7 @@ void Menu()
     cout << "Exit" << endl;
 }
 
-bool handleItem()
+bool handleItem(vector<Item *> items)
 {
     cout << "Choose action:" << endl
          << "(1) Add" << endl
@@ -112,7 +112,7 @@ bool handleItem()
         case 0:
             return true;
         case 1:
-            // addItem();
+            addItem(items);
         case 2:;
         case 3:;
         }
