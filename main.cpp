@@ -315,8 +315,6 @@ void addCustomer(vector<Customer *> Customers)
     }
     if (type == VI)
     {
-    //cout << "Enter  ";
-    //    cin >> genre;
         VIP *vip = new VIP(id, name, address, phone);
         Customers.push_back(vip);
         fileHandler.writeCustomersFile(Customers);
@@ -324,8 +322,6 @@ void addCustomer(vector<Customer *> Customers)
     }
     if (type == REG)
     {
-    //    cout << "Enter genre: ";
-    //    cin >> genre;
     Regular *reg = new Regular(id, name, address, phone);
         Customers.push_back(reg);
         fileHandler.writeCustomersFile(Customers);
