@@ -12,11 +12,6 @@ using namespace std;
 
 FileHandler fileHandler;
 
-void deleteItem(vector<Item*> items) {
-    cout << "Items:" << endl;
-
-}
-
 void displayItem(vector<Item *> items)
 {
     cout << "----------Item List----------" << endl;
@@ -26,9 +21,17 @@ void displayItem(vector<Item *> items)
              << "Title:" << i->getTitle() << " | "
              << "Loan Type:" << i->getLoanType() << " | "
              << "Stock:" << i->getStock() << " | "
-             << "Fee: " << i->getRentalFee() << " USD" << " | " << "Available: " << boolalpha << i->isAvaliable() << endl;
+             << "Fee: " << i->getRentalFee() << " USD"
+             << " | "
+             << "Available: " << boolalpha << i->isAvaliable() << endl;
     }
     cout << "-----------------------------" << endl;
+}
+
+void deleteItem(vector<Item *> items)
+{
+    cout << "Items:" << endl;
+    displayItem(items);
 }
 
 void addItem(vector<Item *> items)
@@ -92,10 +95,6 @@ void addItem(vector<Item *> items)
         fileHandler.writeItemsFile(items);
         delete videoGame;
     }
-}
-
-void deleteItem(vector<Item *> items)
-{
 }
 
 void Menu()
@@ -181,35 +180,43 @@ bool handleCustomer()
     return false;
 }
 
-void input(vector <Item*> items)
+void input(vector<Item *> items)
 {
-    Menu();
-    string choice;
-    int option;
-    cin >> choice;
-    try
+    bool exit = false;
+    while (!exit)
     {
-        option = stoi(choice);
-    }
-    catch (const invalid_argument)
-    {
-        if (choice == "Exit" || choice == "exit")
+
+        Menu();
+        string choice;
+        int option;
+        cin >> choice;
+        try
         {
-            //Exit function here
-            return;
+            option = stoi(choice);
         }
-        else
+        catch (const invalid_argument)
         {
-            cerr << "Invalid input";
+            if (choice == "Exit" || choice == "exit")
+            {
+                //Exit function here
+                return;
+            }
+            else
+            {
+                cerr << "Invalid input";
+            }
         }
-    }
-    switch (option)
-    {
-    case 1:
-        handleItem(items);
-    case 2:;
-    default:
-        cerr << "Incorrect Use";
+        switch (option)
+        {
+        case 1:
+            handleItem(items);
+            break;
+        case 2:
+            break;
+        default:
+            cerr << "Incorrect Use";
+            break;
+        }
     }
 }
 
@@ -247,15 +254,9 @@ int main(int argc, char *argv[])
     }
 
     //UI
-    // input();
-    // addItem(items);
-    addItem(items);
-    items = fileHandler.readItemsFile();
-    displayItem(items);
-    input(items);
-    // addItem(items);
 
-    // fileHandler.writeItemsFile(items);
+    items = fileHandler.readItemsFile();
+    input(items);
 
     return 0;
 }
