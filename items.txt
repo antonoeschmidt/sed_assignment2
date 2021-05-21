@@ -1,7 +1,10 @@
-I123-4567,oggy boggy,Game,2 day,56,2.30
+I123-4567,oggy boggy,Game,2 day,53,2.30
 I002-1988,White Castle,Record,1-week,9,0.99,Comedy
 I003-1992,Alpha Dog,Record,1-week,5,1.99,Action
 I004-1999,Rat Race,DVD,1-week,4,1.99,Horror
 I005-2015,Halo,Game,2-day,4,4.99
 I006-2013,Halloween,DVD,2-day,0,0.99,Horror
 I123-2002,oggy,DVD,2,6,2.00,oggy
+I123-1231,123,Record,2-day,2,123.00,dede
+I123-1230,hej,Game,2-day,10,123.00
+I123-2002,oggy,DVD,2-day,1,1.00,1
