@@ -206,11 +206,26 @@ void addItem(vector<Item *> items)
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
     cin >> digit;
+    while(digit.size() != 3){
+        cerr << "Incorrect code format" << endl;
+        cout << "Enter Item 3-digit code: " << endl;
+        cin >> digit;
+    }
     cout << "Enter year published: " << endl;
     cin >> year;
+    while(year.size() != 4){
+        cerr << "year has to have format yyyy" << endl;
+        cout << "Enter year published: " << endl;
+        cin >> year;
+    }
     id = "I" + digit + "-" + year;
     cout << "Enter loan type: " << endl;
     cin >> loan;
+    while(loan != "2-day" && loan != "1-week"){
+        cerr << "loan has to be either '2-day' or '1-week'" << endl;
+        cout << "Enter loan type: " << endl;
+        cin >> loan;
+    }
     cout << "Enter amount: " << endl;
     cin >> stock;
     cout << "Enter rental fee: " << endl;
@@ -220,6 +235,14 @@ void addItem(vector<Item *> items)
          << "(2) DVD" << endl
          << "(3) Game" << endl;
     cin >> type;
+    while(type != DIS && type != REC && type != GA){
+        cerr << "Incorrect Item Type" << endl;
+        cout << "Select Item Type: " << endl
+        << "(1) Record" << endl
+        << "(2) DVD" << endl
+        << "(3) Game" << endl;
+        cin >> type;        
+    }
     if (type == DIS)
     {
         cout << "Enter genre: ";
@@ -264,6 +287,10 @@ void addCustomer(vector<Customer *> Customers)
     int type;
     cout << "Enter Id: " << endl;
     cin >> id;
+    while(id.size() != 3){
+        cerr << "ID must be 3-digit" << endl;
+        cin >> id;
+    }
     cout << "Enter Name: " << endl;
     cin >> name;
     cout << "Enter the address: " << endl;
@@ -406,7 +433,6 @@ void input()
     bool exit = false;
     while (!exit)
     {
-
         Menu();
         string choice;
         int option;
