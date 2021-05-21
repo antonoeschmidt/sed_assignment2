@@ -342,11 +342,6 @@ void addCustomer(vector<Customer *> Customers)
     }
     if (type == VI)
     {
-<<<<<<< HEAD
-=======
-        //cout << "Enter  ";
-        //    cin >> genre;
->>>>>>> 002ebcb64a962a99e563ef82c4d5b52efa8fc7ce
         VIP *vip = new VIP(id, name, address, phone);
         Customers.push_back(vip);
         fileHandler.writeCustomersFile(Customers);
@@ -354,13 +349,7 @@ void addCustomer(vector<Customer *> Customers)
     }
     if (type == REG)
     {
-<<<<<<< HEAD
     Regular *reg = new Regular(id, name, address, phone);
-=======
-        //    cout << "Enter genre: ";
-        //    cin >> genre;
-        Regular *reg = new Regular(id, name, address, phone);
->>>>>>> 002ebcb64a962a99e563ef82c4d5b52efa8fc7ce
         Customers.push_back(reg);
         fileHandler.writeCustomersFile(Customers);
         delete reg;
@@ -591,13 +580,6 @@ void input()
             handleItem();
             break;
         case 2:
-            handleCustomer();
-            break;
-        case 4:
-            rentItem();
-            break;
-        case 6:
-            displayItem(fileHandler.readItemsFile());
             break;
         default:
             cerr << "Incorrect Use";
