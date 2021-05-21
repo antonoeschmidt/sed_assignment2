@@ -47,7 +47,7 @@ bool FileHandler::writeCustomersFile(vector<Customer *> customers) // write to c
 	return true;
 }
 
-vector<Customer *> FileHandler::readCustomerFile() // function read customer file
+vector<Customer *> FileHandler::readCustomerFile(string customerFile) // function read customer file
 {
 	string line;
 	vector<string> strBuff;
@@ -62,7 +62,8 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 
 	ifstream _fcount; //input customers text file
 
-	_fcount.open("customers.txt");
+	// _fcount.open("customers.txt");
+	_fcount.open(customerFile);
 
 	while (_fcount)
 	{
@@ -138,7 +139,7 @@ bool FileHandler::isItemFile()
 	}
 }
 
-vector<Item *> FileHandler::readItemsFile()
+vector<Item *> FileHandler::readItemsFile(string itemFile)
 {
 	string line;
 	vector<string> strBuff;
@@ -153,7 +154,8 @@ vector<Item *> FileHandler::readItemsFile()
 
 	ifstream _fcount; //input customers text file
 
-	_fcount.open("items.txt");
+	// _fcount.open("items.txt");
+	_fcount.open(itemFile);
 
 	while (_fcount)
 	{
