@@ -13,7 +13,6 @@ bool FileHandler::isCustomerFile() // function to check for the customer file
 	_fcount.open("customers.txt");
 	if (_fcount) // check if file can be open
 	{
-		cout << "Customer File Exists" << endl;
 		_fcount.close();
 		return true;
 	}
@@ -103,9 +102,7 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 				getline(ss, substr, ',');
 				customerVector.push_back(substr);
 			}
-
 			// int subStrLength = customerVector[5].length() - 1; //This handles unwanted whitespace in Type of Customer
-			cout << customerVector[5] << endl;
 			if (customerVector[5] == "Guest")
 			{
 				Guest *guest = new Guest(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
@@ -134,7 +131,6 @@ bool FileHandler::isItemFile()
 	_fcount.open("items.txt");
 	if (_fcount) // check if item text file can be open
 	{
-		cout << "Items File Exists" << endl;
 		_fcount.close();
 		return true;
 	}

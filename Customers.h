@@ -25,8 +25,8 @@ public:
     string getAddress();
     string getPhone();
     int getNoOfReturns();
-    virtual bool borrowItem() = 0; // Pure virtual/abstract method
-    virtual bool returnItem() = 0;
+    virtual bool borrowItem(string itemId) = 0; // Pure virtual/abstract method
+    virtual bool returnItem(string itemId) = 0;
     virtual string toText() = 0; // Uses to save to text
     bool isGuest();
     vector<string> getItems();
@@ -41,8 +41,8 @@ private:
 public:
     Regular();
     Regular(string id, string name, string address, string phone);
-    bool borrowItem();
-    bool returnItem();
+    bool borrowItem(string itemId);
+    bool returnItem(string itemId);
     string toText();
 };
 
@@ -57,8 +57,8 @@ public:
     Guest(string id, string name, string address, string phone);
     int getMaxRental();
     bool isGuest(); // does it have to be here, when it's already in Customer class?
-    bool borrowItem();
-    bool returnItem();
+    bool borrowItem(string itemId);
+    bool returnItem(string itemId);
     string toText();
 };
 
@@ -70,8 +70,8 @@ private:
 public:
     VIP();
     VIP(string id, string name, string address, string phone);
-    bool borrowItem();
-    bool returnItem();
+    bool borrowItem(string itemId);
+    bool returnItem(string itemId);
     string toText();
     // int getReward();
 };
