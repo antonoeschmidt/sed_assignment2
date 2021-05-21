@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// Declaring global variables, that will be used extensively
 FileHandler fileHandler;
 string itemFile;
 string customerFile;
@@ -636,7 +637,6 @@ void addItem(vector<Item *> items)
     }
 }
 
-
 //Search function for customer
 void searchCustomer(vector<Customer *> customers)
 {
@@ -647,7 +647,6 @@ void searchCustomer(vector<Customer *> customers)
     cout << "2. Search by Name" << endl;
     cout << "0. Exit" << endl;
     cin >> input;
-
 
     // Error handling
     try
@@ -699,8 +698,6 @@ void searchCustomer(vector<Customer *> customers)
     }
     return;
 }
-
-
 
 void addCustomer(vector<Customer *> customers)
 {
@@ -794,7 +791,6 @@ void addCustomer(vector<Customer *> customers)
     }
 }
 
-
 // Printing out menu
 void Menu()
 {
@@ -813,7 +809,6 @@ void Menu()
     cout << "10. Search items or customers" << endl;
     cout << "0. Exit" << endl;
 }
-
 
 //Item related
 bool handleItem()
@@ -865,8 +860,7 @@ bool handleItem()
     return false;
 }
 
-
-//Customer related 
+//Customer related
 bool handleCustomer()
 {
     vector<Customer *> customers;
@@ -1064,7 +1058,6 @@ void rentItem()
     fileHandler.writeItemsFile(items, itemFile);
 }
 
-
 //Main function
 void input()
 {
@@ -1162,11 +1155,12 @@ void input()
 
 int main(int argc, char *argv[])
 {
-    //Commanded line must be items file first, customer file second
+    // ----- Command line must be items file first, customer file second ----- //
+
     // Checks if the program is executed in the correct format
     if (argc != 3)
     {
-        cout << "Invalid amount of argument";
+        cout << "Invalid amount of argument. Please put item file as first arugment, and customer file as second.";
         return -1;
     }
     //Opening the file and checking if it's opened properly
@@ -1176,21 +1170,19 @@ int main(int argc, char *argv[])
         cerr << "Error opening file" << endl;
         return -1;
     }
-    // FileHandler fileHandler;
-    // vector<Item *> items;
-    // vector<Customer *> customers;
 
-    // customers = fileHandler.readCustomerFile();
-    // displayCustomer(customers);
+    // Filename from command line arguments
     itemFile = argv[1];
     customerFile = argv[2];
 
-    // items = fileHandler.readItemsFile();
-    // displayItem(items);
-
-    // //UI
-    // items = fileHandler.readItemsFile();
+    // UI
     input();
+    cout << "" << endl;
+    cout << "ASSIGNMENT 2 GROUP 30" << endl;
+    cout << "s3892062,s3892062@rmit.edu.vn, Anton Oestergaard, Schmidt" << endl;
+    cout << "s3877375,s3877375@rmit.edu.vn, Le Pham Ngoc, Hieu" << endl;
+    cout << "s3891411,s3891411@rmit.edu.vn, Jeppe, Madsen" << endl;
+    cout << "s3775271,s3775271@rmit.edu.vn, Ramcharan, Ramanaharan" << endl;
 
     return 0;
 }
