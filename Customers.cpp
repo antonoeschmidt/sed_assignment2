@@ -38,17 +38,15 @@ Regular::Regular(string id, string name, string address, string phone)
     this->guest = false;
 }
 
-bool Regular::borrowItem(/* item here */)
+bool Regular::borrowItem(string itemId)
 {
-    cout << "Borrow Item called" << endl;
-
-    return false;
+    this->populateBorrowedItems(itemId);
+    return true;
 }
 
-bool Regular::returnItem(/* item here */)
+bool Regular::returnItem(string itemId)
 {
     cout << "Return Item called" << endl;
-
     return false;
 }
 
@@ -67,12 +65,12 @@ VIP::VIP(string id, string name, string address, string phone)
 {
     this->guest = false;
 }
-bool VIP::borrowItem(/* item here */)
+bool VIP::borrowItem(string itemId)
 {
-    cout << "Borrow Item called" << endl;
-    return false;
+    this->populateBorrowedItems(itemId);
+    return true;
 }
-bool VIP::returnItem(/* item here */)
+bool VIP::returnItem(string itemId)
 {
     cout << "Return Item called" << endl;
     return false;
@@ -94,13 +92,21 @@ Guest::Guest(string id, string name, string address, string phone)
     this->guest = true;
     this->maxRental = 2;
 }
-bool Guest::borrowItem(/* item here */)
+bool Guest::borrowItem(string itemId)
 {
-    cout << "Borrow Item called" << endl;
-    return false;
+    if (this->getItems().size() >= this->getMaxRental())
+    {
+        cout << "Max number of rentals reached. Please return an item before borrowing a new." << endl;
+        return false;
+    }
+    else
+    {
+        this->populateBorrowedItems(itemId);
+        return true;
+    }
 }
 
-bool Guest::returnItem(/* item here */)
+bool Guest::returnItem(string itemId)
 {
     cout << "Return Item called" << endl;
     return false;
