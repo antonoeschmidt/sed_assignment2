@@ -54,14 +54,20 @@ void Item::setAvaliable(bool avaliable)
     this->avaliable = avaliable;
 }
 
+string Item::getRentalType() {return this->rentalType;}
+
+void Item::setRentalType(string type) {this->rentalType = type;}
+
 DVD::DVD() : Item()
 {
     this->genre = "Action";
+    this->setRentalType("DVD");
 }
 
 DVD::DVD(string id, string title, string loanType, int stock, float rentalFee, string genre) : Item(id, title, loanType, stock, rentalFee)
 {
     this->genre = genre;
+    this->setRentalType("DVD");
 }
 string DVD::getGenre() { return genre; }
 
@@ -77,10 +83,12 @@ string DVD::toText()
 Record::Record(string id, string title, string loanType, int stock, float rentalFee, string genre) : Item(id, title, loanType, stock, rentalFee)
 {
     this->genre = genre;
+    this->setRentalType("Record");
 }
 Record::Record() : Item()
 {
     this->genre = "Disco";
+    this->setRentalType("Record");
 }
 
 string Record::getGenre() { return genre; }
@@ -95,7 +103,7 @@ string Record::toText()
 
 VideoGames::VideoGames(string id, string title, string loanType, int stock, float rentalFee) : Item(id, title, loanType, stock, rentalFee)
 {
-    ;
+    this->setRentalType("VideoGames");
 }
 
 void Record::setGenre(string genre) { this->genre = genre; }

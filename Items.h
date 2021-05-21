@@ -9,11 +9,10 @@ using namespace std;
 class Item
 {
 private:
-    string id, title, loanType;
+    string id, title, loanType, rentalType;
     int stock;
     float rentalFee;
     bool avaliable;
-
 public:
     Item();
     Item(string id, string title, string loanType, int stock, float rentalFee);
@@ -32,6 +31,8 @@ public:
     bool isAvaliable();
     void setAvaliable(bool avaliable);
     virtual string toText() = 0; // Pure virtual/abstract method
+    string getRentalType();
+    void setRentalType(string type);
 
 };
 

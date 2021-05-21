@@ -19,6 +19,7 @@ void displayItem(vector<Item *> items)
     {
         cout << "ID: " << i->getId() << " | "
              << "Title:" << i->getTitle() << " | "
+             << "Rental Type: " << i->getRentalType() << " | "
              << "Loan Type:" << i->getLoanType() << " | "
              << "Stock:" << i->getStock() << " | "
              << "Fee: " << i->getRentalFee() << " USD"
@@ -36,16 +37,16 @@ void displayCustomer(vector<Customer *> customers)
         cout << "ID: " << i->getId() << " | "
              << "Name:" << i->getName() << " | "
              << "Address:" << i->getAddress() << " | "
-             << "Phone Number:" << i->getPhone();
+             << "Phone Number:" << i->getPhone() << endl;
         vector<string> items = i->getItems();
-		if (items.size() > 0)
-		{
-			for (int j = 0; j < items.size(); j++)
-			{
-				cout << items[j] << endl;
-			}
-		}
-    }   
+        if (items.size() > 0)
+        {
+            for (int j = 0; j < items.size(); j++)
+            {
+                cout << items[j] << endl;
+            }
+        }
+    }
     cout << "-----------------------------" << endl;
 }
 
