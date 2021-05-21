@@ -7,3 +7,4 @@ I006-2013,Halloween,DVD,2-day,1,0.99,Horror
 I123-2002,oggy,DVD,2,6,2.00,oggy
 I123-1231,123,Record,2-day,2,123.00,dede
 I123-1230,hej,Game,2-day,10,123.00
+I123-2002,oggy,DVD,2-day,1,1.00,1
