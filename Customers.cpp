@@ -25,7 +25,15 @@ void Customer::populateBorrowedItems(string itemId)
 {
     this->items.push_back(itemId);
 }
+string Customer::getcustomerType()
+{
+    return this->customerType;
+}
 
+void Customer::setcustomerType(string customerType)
+{
+    this->customerType = customerType;
+}
 void Customer::removeBorrowedItems(string itemId)
 {
     for (int i = 0; i < items.size(); i++)
@@ -42,12 +50,14 @@ void Customer::removeBorrowedItems(string itemId)
 Regular::Regular() : Customer()
 {
     this->guest = false;
+    this->setcustomerType("Regular");
 }
 
 Regular::Regular(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = false;
+    this->setcustomerType("Regular");
 }
 
 bool Regular::borrowItem(string itemId)
@@ -71,11 +81,13 @@ string Regular::toText()
 VIP::VIP() : Customer()
 {
     this->guest = false;
+    this->setcustomerType("VIP");
 }
 VIP::VIP(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = false;
+    this->setcustomerType("VIP");
 }
 bool VIP::borrowItem(string itemId)
 {
@@ -98,12 +110,14 @@ Guest::Guest() : Customer()
 {
     this->guest = true;
     this->maxRental = 2;
+    this->setcustomerType("Guest");
 }
 Guest::Guest(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = true;
     this->maxRental = 2;
+    this->setcustomerType("Guest");
 }
 bool Guest::borrowItem(string itemId)
 {

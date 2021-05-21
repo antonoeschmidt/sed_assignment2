@@ -15,6 +15,7 @@ private:
     vector<string> items;
     int noOfReturns;
     bool guest;
+    string customerType;
 
 public:
     Customer();
@@ -24,6 +25,7 @@ public:
     string getName();
     string getAddress();
     string getPhone();
+    string getcustomerType();
     int getNoOfReturns();
     virtual bool borrowItem(string itemId) = 0; // Pure virtual/abstract method
     virtual bool returnItem(string itemId) = 0;
@@ -33,6 +35,7 @@ public:
     void populateBorrowedItems(string itemId);
     void removeBorrowedItems(string itemId);
 
+    void setcustomerType(string customerType);
 };
 
 class Regular : public Customer

@@ -26,6 +26,37 @@ Item *searchItemByID(vector<Item *> items, string input)
     return tmp;
 }
 
+void displayOutOfStockItem(vector<Item *> items)
+{
+
+    cout << "----------Out of Stock Item List----------" << endl;
+    int numOutOfStock = 0;
+    for (auto &i : items)
+    {
+        if (i->getStock() == 0)
+        {
+            numOutOfStock++;
+            cout << "ID: " << i->getId() << " | "
+                 << "Title:" << i->getTitle() << " | "
+                 << "Rental Type: " << i->getRentalType() << " | "
+                 << "Loan Type:" << i->getLoanType() << " | "
+                 << "Stock:" << i->getStock() << " | "
+                 << "Fee: " << i->getRentalFee() << " USD"
+                 << " | "
+                 << "Available: " << boolalpha << i->isAvaliable() << endl;
+        }
+        else
+        {
+            continue;
+        }
+    }
+    if (numOutOfStock == 0)
+    {
+        cout << "There are no items out of stock." << endl;
+    }
+    cout << "------------------------------------------" << endl;
+}
+
 void displayItem(vector<Item *> items)
 {
     cout << "----------Item List----------" << endl;
@@ -49,9 +80,9 @@ void displayCustomer(vector<Customer *> customers)
     for (auto &i : customers)
     {
         cout << "ID: " << i->getId() << " | "
-             << "Name:" << i->getName() << " | "
-             << "Address:" << i->getAddress() << " | "
-             << "Phone Number:" << i->getPhone() << endl;
+             << "Name: " << i->getName() << " | "
+             << "Address: " << i->getAddress() << " | "
+             << "Phone Number: " << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
         vector<string> items = i->getItems();
         if (items.size() > 0)
         {
@@ -64,6 +95,69 @@ void displayCustomer(vector<Customer *> customers)
     cout << "-----------------------------" << endl;
 }
 
+void displayCustomerGroup(vector<Customer *> customers)
+{
+    cout << "==========Guests==========" << endl;
+    for (auto &i : customers)
+    {
+        if (i->getcustomerType() == "Guest")
+        {
+            cout << "ID: " << i->getId() << " | "
+                 << "Name:" << i->getName() << " | "
+                 << "Address:" << i->getAddress() << " | "
+                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+            vector<string> items = i->getItems();
+            if (items.size() > 0)
+            {
+                for (int j = 0; j < items.size(); j++)
+                {
+                    cout << items[j] << endl;
+                }
+            }
+        }
+    }
+    cout << "==========================" << endl;
+    cout << "*********Regulars*********" << endl;
+    for (auto &i : customers)
+    {
+        if (i->getcustomerType() == "Regular")
+        {
+            cout << "ID: " << i->getId() << " | "
+                 << "Name:" << i->getName() << " | "
+                 << "Address:" << i->getAddress() << " | "
+                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+            vector<string> items = i->getItems();
+            if (items.size() > 0)
+            {
+                for (int j = 0; j < items.size(); j++)
+                {
+                    cout << items[j] << endl;
+                }
+            }
+        }
+    }
+    cout << "***************************" << endl;
+    cout << "____________VIP____________" << endl;
+    for (auto &i : customers)
+    {
+        if (i->getcustomerType() == "VIP")
+        {
+            cout << "ID: " << i->getId() << " | "
+                 << "Name:" << i->getName() << " | "
+                 << "Address:" << i->getAddress() << " | "
+                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+            vector<string> items = i->getItems();
+            if (items.size() > 0)
+            {
+                for (int j = 0; j < items.size(); j++)
+                {
+                    cout << items[j] << endl;
+                }
+            }
+        }
+    }
+    cout << "___________________________" << endl;
+}
 void updateItem(Item *item, vector<Item *> itemslist)
 {
     bool exit = false;
@@ -660,8 +754,14 @@ void input()
         case 6:
             displayItem(fileHandler.readItemsFile());
             break;
+        case 7:
+            displayOutOfStockItem(fileHandler.readItemsFile());
+            break;
         case 8:
             displayCustomer(fileHandler.readCustomerFile());
+            break;
+        case 9:
+            displayCustomerGroup(fileHandler.readCustomerFile());
             break;
         default:
             cerr << "Incorrect Use";
