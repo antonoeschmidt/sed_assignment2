@@ -132,38 +132,46 @@ void Menu()
     cout << "8. Display all customers" << endl;
     cout << "9. Display group of customers" << endl;
     cout << "10. Search items or customers" << endl;
-    cout << "Exit" << endl;
+    cout << "0. Exit" << endl;
 }
 
 bool handleItem(vector<Item *> items)
 {
-    cout << "Choose action:" << endl
-         << "(1) Add" << endl
-         << "(2) Delete" << endl
-         << "(3) Update" << endl
-         << "(0) Back to menu" << endl;
-    string a;
-    int tmp;
-    cin >> a;
-    try
+    bool exit = false;
+    while (!exit)
     {
-        tmp = stoi(a);
-    }
-    catch (const invalid_argument)
-    {
-        cerr << "Invalid input";
-    }
-    if (tmp >= 0 && tmp <= 3)
-    {
-        switch (tmp)
+
+        cout << "Choose action:" << endl
+             << "(1) Add" << endl
+             << "(2) Delete" << endl
+             << "(3) Update" << endl
+             << "(0) Back to menu" << endl;
+        string a;
+        int tmp;
+        cin >> a;
+        try
         {
-        case 0:
-            return true;
-        case 1:
-            addItem(items);
-        case 2:
-            deleteItem(items);
-        case 3:;
+            tmp = stoi(a);
+        }
+        catch (const invalid_argument)
+        {
+            cerr << "Invalid input";
+        }
+        if (tmp >= 0 && tmp <= 3)
+        {
+            switch (tmp)
+            {
+            case 0:
+                exit = true;
+                return true;
+            case 1:
+                addItem(items);
+                break;
+            case 2:
+                deleteItem(items);
+                break;
+            case 3:;
+            }
         }
     }
     return false;
@@ -229,6 +237,9 @@ void input(vector<Item *> items)
         }
         switch (option)
         {
+        case 0:
+            exit = true;
+            break;
         case 1:
             handleItem(items);
             break;
@@ -269,7 +280,6 @@ int main(int argc, char *argv[])
     displayItem(items);
 
     //UI
-
     items = fileHandler.readItemsFile();
     input(items);
 
