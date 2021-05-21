@@ -25,17 +25,39 @@ void Customer::populateBorrowedItems(string itemId)
 {
     this->items.push_back(itemId);
 }
+string Customer::getcustomerType()
+{
+    return this->customerType;
+}
+
+void Customer::setcustomerType(string customerType)
+{
+    this->customerType = customerType;
+}
+void Customer::removeBorrowedItems(string itemId)
+{
+    for (int i = 0; i < items.size(); i++)
+    {
+        if (itemId.substr(0,9) == items[i].substr(0,9))
+        {
+            items.erase(items.begin() + i);
+            cout << "Item with ID: " << items[i] << " returned" << endl;
+        }
+    }
+}
 
 // ----- Regular -----
 Regular::Regular() : Customer()
 {
     this->guest = false;
+    this->setcustomerType("Regular");
 }
 
 Regular::Regular(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = false;
+    this->setcustomerType("Regular");
 }
 
 bool Regular::borrowItem(string itemId)
@@ -46,8 +68,8 @@ bool Regular::borrowItem(string itemId)
 
 bool Regular::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
-    return false;
+    this->removeBorrowedItems(itemId);
+    return true;
 }
 
 string Regular::toText()
@@ -59,11 +81,13 @@ string Regular::toText()
 VIP::VIP() : Customer()
 {
     this->guest = false;
+    this->setcustomerType("VIP");
 }
 VIP::VIP(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = false;
+    this->setcustomerType("VIP");
 }
 bool VIP::borrowItem(string itemId)
 {
@@ -72,7 +96,8 @@ bool VIP::borrowItem(string itemId)
 }
 bool VIP::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
+    this->removeBorrowedItems(itemId);
+
     return false;
 }
 string VIP::toText()
@@ -85,12 +110,14 @@ Guest::Guest() : Customer()
 {
     this->guest = true;
     this->maxRental = 2;
+    this->setcustomerType("Guest");
 }
 Guest::Guest(string id, string name, string address, string phone)
     : Customer(id, name, address, phone)
 {
     this->guest = true;
     this->maxRental = 2;
+    this->setcustomerType("Guest");
 }
 bool Guest::borrowItem(string itemId)
 {
@@ -108,7 +135,8 @@ bool Guest::borrowItem(string itemId)
 
 bool Guest::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
+    this->removeBorrowedItems(itemId);
+
     return false;
 }
 bool Guest::isGuest() { return guest; }
