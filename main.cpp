@@ -584,6 +584,9 @@ void input()
         case 6:
             displayItem(fileHandler.readItemsFile());
             break;
+        case 8:
+            displayCustomer(fileHandler.readCustomerFile());
+            break;
         default:
             cerr << "Incorrect Use";
             break;
