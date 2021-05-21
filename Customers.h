@@ -22,9 +22,13 @@ public:
     Customer(string id, string name, string address, string phone);
     // ~Customer();
     string getId();
+    void setId(string id);
     string getName();
+    void setName(string name);
     string getAddress();
+    void setAddress(string address);
     string getPhone();
+    void setPhone(string phone);
     string getcustomerType();
     int getNoOfReturns();
     virtual bool borrowItem(string itemId) = 0; // Pure virtual/abstract method

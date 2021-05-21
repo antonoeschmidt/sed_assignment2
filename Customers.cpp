@@ -46,6 +46,26 @@ void Customer::removeBorrowedItems(string itemId)
     }
 }
 
+void Customer::setId(string id)
+{
+    this->id = id;
+}
+
+void Customer::setName(string name)
+{
+    this->name = name;
+}
+
+void Customer::setAddress(string address)
+{
+    this->address = address;
+}
+
+void Customer::setPhone(string phone)
+{
+    this->phone = phone;
+}
+
 // ----- Regular -----
 Regular::Regular() : Customer()
 {

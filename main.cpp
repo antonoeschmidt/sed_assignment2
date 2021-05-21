@@ -32,13 +32,14 @@ void displayOutOfStockItem(vector<Item *> items)
 {
 
     cout << "----------Out of Stock Item List----------" << endl;
-    int numOutOfStock = 0;
-    for (auto &i : items)
+    int numOutOfStock = 0; // initialize # of items out of stock
+    for (auto &i : items) // loop through items 
     {
-        if (i->getStock() == 0)
+        if (i->getStock() == 0) // if number of item i in stock is zero, it's out of stock
         {
-            numOutOfStock++;
-            cout << "ID: " << i->getId() << " | "
+            numOutOfStock++; // increment # of items out of stock
+            // show info about item i, which is out of stock
+            cout << "ID: " << i->getId() << " | " 
                  << "Title:" << i->getTitle() << " | "
                  << "Rental Type: " << i->getRentalType() << " | "
                  << "Loan Type:" << i->getLoanType() << " | "
@@ -52,7 +53,7 @@ void displayOutOfStockItem(vector<Item *> items)
             continue;
         }
     }
-    if (numOutOfStock == 0)
+    if (numOutOfStock == 0) // show the following message if no items are out of stock
     {
         cout << "There are no items out of stock." << endl;
     }
@@ -62,6 +63,7 @@ void displayOutOfStockItem(vector<Item *> items)
 void displayItem(vector<Item *> items)
 {
     cout << "----------Item List----------" << endl;
+    // loop through all items and show information about them
     for (auto &i : items)
     {
         cout << "ID: " << i->getId() << " | "
@@ -79,6 +81,7 @@ void displayItem(vector<Item *> items)
 void displayCustomer(vector<Customer *> customers)
 {
     cout << "----------Customer List----------" << endl;
+    // loop thorugh all customers and show information about them
     for (auto &i : customers)
     {
         cout << "ID: " << i->getId() << " | "
@@ -87,7 +90,7 @@ void displayCustomer(vector<Customer *> customers)
              << "Phone Number: " << i->getPhone() << " | "
              << "Account Type: " << i->getcustomerType() << endl;
         vector<string> items = i->getItems();
-        if (items.size() > 0)
+        if (items.size() > 0) // if customer has borrowed items, show them
         {
             for (int j = 0; j < items.size(); j++)
             {
@@ -101,17 +104,18 @@ void displayCustomer(vector<Customer *> customers)
 void displayCustomerGroup(vector<Customer *> customers)
 {
     cout << "==========Guests==========" << endl;
-    for (auto &i : customers)
+    for (auto &i : customers) // loop through all customers
     {
-        if (i->getcustomerType() == "Guest")
+        if (i->getcustomerType() == "Guest") // check if they're guests
         {
+            // show their information
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
                  << "Phone Number:" << i->getPhone() << " | "
                  << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
-            if (items.size() > 0)
+            if (items.size() > 0) // if they borrowed some items, show them
             {
                 for (int j = 0; j < items.size(); j++)
                 {
@@ -122,7 +126,8 @@ void displayCustomerGroup(vector<Customer *> customers)
     }
     cout << "==========================" << endl;
     cout << "*********Regulars*********" << endl;
-    for (auto &i : customers)
+    // the rest of the code is the same for regular and VIP customers
+    for (auto &i : customers) // 
     {
         if (i->getcustomerType() == "Regular")
         {
@@ -164,6 +169,78 @@ void displayCustomerGroup(vector<Customer *> customers)
     }
     cout << "___________________________" << endl;
 }
+
+void updateCustomer(Customer *customer, vector<Customer *> customers){
+    bool exit = false;
+    while (!exit)
+    {
+        cout << "Select aspect to change:" << endl;
+        cout << "1. ID: " << customer->getId() << endl;
+        cout << "2. Name " << customer->getName() << endl;
+        cout << "3. Address: " << customer->getAddress() << endl;
+        cout << "4. Phone number: " << customer->getPhone() << endl; 
+        cout << "|0.Exit|" << endl;        
+        string choice, input;
+        int option, digit;
+        cin >> choice;
+        try
+        {
+            option = stoi(choice);
+        }
+        catch (const invalid_argument)
+        {
+            if (choice == "Exit" || choice == "exit")
+            {
+                exit = true;
+                return;
+            }
+            else
+            {
+                cerr << "Invalid input" << endl;
+            }
+        }
+        switch (option)
+        {
+        case 0:
+            exit = true;
+            return;
+        case 1:
+            cout << "Enter new ID digit: ";
+            cin >> input;
+            try
+            {
+                digit = stoi(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input" << endl;
+                break;
+            }
+            if (input.size() != 3)
+            {
+                cerr << "ID must be 3-digit" << endl;
+                break;
+            }
+            customer->setId(input);
+        case 2:
+            cout << "Enter new name: ";
+            cin >> input;
+            customer->setName(input);
+        case 3:
+            cout << "Enter new address: ";
+            cin >> input;
+            customer->setAddress(input);
+        case 4:
+            cout << "Enter new phone number: ";
+            cin >> input;
+            customer->setPhone(input);
+        default:
+            cerr << "Incorrect Use";
+            break;
+        }
+    }
+}
+
 void updateItem(Item *item, vector<Item *> itemslist)
 {
     bool exit = false;
@@ -586,8 +663,6 @@ bool handleItem()
                 break;
             case 3:
                 displayItem(items);
-                cout << "Enter ID of item to update: ";
-                cin >> a;
                 if (searchItemByID(items, a) != NULL)
                 {
                     updateItem(searchItemByID(items, a), items);
@@ -635,6 +710,13 @@ bool handleCustomer()
                 // addItem();
                 break;
             case 2:
+                displayCustomer(customers);
+                cout << "Enter ID of customer to update: ";
+                cin >> a;
+                if (search(customers, a) != NULL)
+                {
+                    updateCustomer(searchItemByID(customers, a), customers);
+                }
                 break;
             }
         }
