@@ -17,6 +17,20 @@ void deleteItem(vector<Item*> items) {
 
 }
 
+void displayItem(vector<Item *> items)
+{
+    cout << "----------Item List----------" << endl;
+    for (auto &i : items)
+    {
+        cout << "ID: " << i->getId() << " | "
+             << "Title:" << i->getTitle() << " | "
+             << "Loan Type:" << i->getLoanType() << " | "
+             << "Stock:" << i->getStock() << " | "
+             << "Fee: " << i->getRentalFee() << " USD" << " | " << "Available: " << boolalpha << i->isAvaliable() << endl;
+    }
+    cout << "-----------------------------" << endl;
+}
+
 void addItem(vector<Item *> items)
 {
     enum ItemType
@@ -59,6 +73,8 @@ void addItem(vector<Item *> items)
         cin >> genre;
         DVD *disc = new DVD(id, title, loan, stock, fee, genre);
         items.push_back(disc);
+        fileHandler.writeItemsFile(items);
+        delete disc;
     }
     if (type == REC)
     {
@@ -66,13 +82,20 @@ void addItem(vector<Item *> items)
         cin >> genre;
         Record *record = new Record(id, title, loan, stock, fee, genre);
         items.push_back(record);
+        fileHandler.writeItemsFile(items);
+        delete record;
     }
     if (type == GA)
     {
         VideoGames *videoGame = new VideoGames(id, title, loan, stock, fee);
         items.push_back(videoGame);
+        fileHandler.writeItemsFile(items);
+        delete videoGame;
     }
-    fileHandler.writeItemsFile(items);
+}
+
+void deleteItem(vector<Item *> items)
+{
 }
 
 void Menu()

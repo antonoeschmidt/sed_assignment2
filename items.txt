@@ -4,4 +4,6 @@ I003-1992,Alpha Dog,Record,1-week,3,1.99,Action
 I004-1999,Rat Race,DVD,1-week,3,1.99,Horror
 I005-2015,Halo,Game,2-day,2,4.99
 I006-2013,Halloween,DVD,2-day,1,0.99,Horror
-I123-456,oggy,DVD,2day,2,3.00,oaction
+I123-2002,oggy,DVD,2,3,2.00,oggy
+I123-2002,oggy,DVD,2day,2,4.00,1
+Iwanton-2002,anton,DVD,2,2,3.00,1
