@@ -70,6 +70,31 @@ void addItem(vector<Item *> items)
     fileHandler.writeItemsFile(items);
 }
 
+
+
+void addCustomer(vector<Customer *> Customers)
+{
+    string id;
+    string name;
+    string address;
+    string phone;
+    int noOfReturn;
+    bool guest;
+    cout << "Enter Id: " << endl;
+    cin >> id;
+    cout << "Enter Name: " << endl;
+    cin >> name;
+    cout << "Enter the address: " << endl;
+    cin >> address;
+    cout << "Enter Phonenumber " << endl;
+    cin >> phone;
+    cout << "Number of Returns " << endl;
+    cin >> noOfReturn;
+    
+    
+    fileHandler.writeCustomersFile(Customers);
+}
+
 void Menu()
 {
     cout << "Welcome to Oggy's video store" << endl;
