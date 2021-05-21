@@ -11,6 +11,7 @@ Customer::Customer(string id, string name, string address, string phone)
     this->name = name;
     this->address = address;
     this->phone = phone;
+    this->guest = false;
     this->noOfReturns = 0;
 }
 string Customer::getId() { return id; }
@@ -33,6 +34,18 @@ void Customer::setcustomerType(string customerType)
 {
     this->customerType = customerType;
 }
+void Customer::removeBorrowedItems(string itemId)
+{
+    for (int i = 0; i < items.size(); i++)
+    {
+        if (itemId.substr(0,9) == items[i].substr(0,9))
+        {
+            items.erase(items.begin() + i);
+            cout << "Item with ID: " << items[i] << " returned" << endl;
+        }
+    }
+}
+
 // ----- Regular -----
 Regular::Regular() : Customer()
 {
@@ -55,8 +68,8 @@ bool Regular::borrowItem(string itemId)
 
 bool Regular::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
-    return false;
+    this->removeBorrowedItems(itemId);
+    return true;
 }
 
 string Regular::toText()
@@ -83,7 +96,8 @@ bool VIP::borrowItem(string itemId)
 }
 bool VIP::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
+    this->removeBorrowedItems(itemId);
+
     return false;
 }
 string VIP::toText()
@@ -121,7 +135,8 @@ bool Guest::borrowItem(string itemId)
 
 bool Guest::returnItem(string itemId)
 {
-    cout << "Return Item called" << endl;
+    this->removeBorrowedItems(itemId);
+
     return false;
 }
 bool Guest::isGuest() { return guest; }

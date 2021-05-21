@@ -158,7 +158,6 @@ void displayCustomerGroup(vector<Customer *> customers)
     }
     cout << "___________________________" << endl;
 }
-
 void updateItem(Item *item, vector<Item *> itemslist)
 {
     bool exit = false;
@@ -629,6 +628,75 @@ bool handleCustomer()
     return false;
 }
 
+void returnItem()
+{
+    vector<Customer *> customers = fileHandler.readCustomerFile();
+    vector<Item *> items = fileHandler.readItemsFile();
+    vector<string> customerItems;
+    Customer *customer;
+    string customerId, itemId;
+    bool found = false;
+
+    displayCustomer(customers);
+    cout << "Enter ID of the customer that will return an item: ";
+    while (!found)
+    {
+        cin >> customerId;
+        if (customerId == "0")
+            break;
+
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customers[i]->getId() == customerId)
+            {
+                customer = customers[i];
+                customerItems = customers[i]->getItems();
+                found = true;
+            }
+        }
+        if (!found)
+            cout << "Customer not found. Please try again or exit by typing 0" << endl;
+    }
+    found = false;
+
+    cout << "Enter ID of Item that you wants to be returned:" << endl;
+    for (int i = 0; i < customerItems.size(); i++)
+    {
+        cout << customerItems[i] << endl;
+    }
+    while (!found)
+    {
+        cin >> itemId;
+        if (itemId == "0")
+            break;
+
+        for (int i = 0; i < customerItems.size(); i++)
+        {
+
+            cout << customerItems[i].substr(0,9).size() << endl;
+            cout << itemId.substr(0,9).size() << endl;
+            cout << (customerItems[i].substr(0,9) == itemId.substr(0,9)) << endl;
+            if (customerItems[i].substr(0,9) == itemId.substr(0,9))
+            {
+                found = true;
+                customer->returnItem(itemId.substr(0,9));
+                for (int i = 0; i < items.size(); i++)
+                {
+                    if (items[i]->getId() == itemId)
+                    {
+                        items[i]->setStock(items[i]->getStock() + 1);
+                    }
+                }
+            }
+        }
+        if (!found)
+            cout << "Item not found. Please try another item or exit by typing 0." << endl;
+    }
+
+    fileHandler.writeCustomersFile(customers);
+    fileHandler.writeItemsFile(items);
+}
+
 void rentItem()
 {
     vector<Customer *> customers = fileHandler.readCustomerFile();
@@ -690,6 +758,7 @@ void rentItem()
                         if (items[i]->getId() == itemId)
                         {
                             items[i]->setStock(items[i]->getStock() - 1);
+                            items[i]->setAvaliable(items[i]->getStock() > 0);
                         }
                     }
                 }
@@ -740,6 +809,16 @@ void input()
             handleItem();
             break;
         case 2:
+            handleCustomer();
+            break;
+        case 4:
+            rentItem();
+            break;
+        case 5:
+            returnItem();
+            break;
+        case 6:
+            displayItem(fileHandler.readItemsFile());
             break;
         case 7:
             displayOutOfStockItem(fileHandler.readItemsFile());
