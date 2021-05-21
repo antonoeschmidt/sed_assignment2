@@ -132,6 +132,73 @@ void addItem(vector<Item *> items)
     }
 }
 
+void deleteItem(vector<Item *> items)
+{
+}
+
+
+
+void addCustomer(vector<Customer *> Customers)
+{
+    enum CustomerType
+    {
+        VI = 1,
+        REG = 2,
+        GUE = 3
+    };
+    string id;
+    string name;
+    string address;
+    string phone;
+    int noOfReturn;
+    bool guest;
+    int type;
+    cout << "Enter Id: " << endl;
+    cin >> id;
+    cout << "Enter Name: " << endl;
+    cin >> name;
+    cout << "Enter the address: " << endl;
+    cin >> address;
+    cout << "Enter Phone number " << endl;
+    cin >> phone;
+    cout << "Number of Returns " << endl;
+    cin >> noOfReturn;
+
+    cout << "Select Customer Type: " << endl
+         << "(1) VIP" << endl
+         << "(2) Regular" << endl
+         << "(3) Guest" << endl;
+    cin >> type;
+    if (type == VI)
+    {
+    //cout << "Enter  ";
+    //    cin >> genre;
+        VIP *vip = new VIP(id, name, address, phone);
+        Customers.push_back(vip);
+        fileHandler.writeCustomersFile(Customers);
+        delete vip;
+    }
+    if (type == REG)
+    {
+    //    cout << "Enter genre: ";
+    //    cin >> genre;
+    Regular *reg = new Regular(id, name, address, phone);
+        Customers.push_back(reg);
+        fileHandler.writeCustomersFile(Customers);
+        delete reg;
+    }
+    if (type == GUE)
+    {
+    Guest *guest = new Guest(id, name, address, phone);
+        Customers.push_back(guest);
+        fileHandler.writeCustomersFile(Customers);
+        delete guest;
+    }
+    
+    
+    fileHandler.writeCustomersFile(Customers);
+}
+
 void Menu()
 {
     cout << "Welcome to Oggy's video store" << endl;
