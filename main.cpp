@@ -119,12 +119,6 @@ void addItem(vector<Item *> items)
     }
 }
 
-void deleteItem(vector<Item *> items)
-{
-}
-
-
-
 void addCustomer(vector<Customer *> Customers)
 {
     enum CustomerType
