@@ -50,6 +50,120 @@ void displayCustomer(vector<Customer *> customers)
     cout << "-----------------------------" << endl;
 }
 
+void updateItem(Item *items)
+{
+    bool exit = false;
+    while (!exit)
+    {
+        cout << "Select aspect to change:" << endl;
+        cout << "1. ID: " << items->getId() << endl;
+        cout << "2. Title " << items->getTitle() << endl;
+        cout << "3. Loan Type: " << items->getLoanType() << endl;
+        cout << "4. Stock: " << items->getStock() << endl;
+        cout << "5. Rental Fee: " << items->getRentalFee() << endl;
+        cout << "|0.Exit|" << endl;
+        string choice, input;
+        float fee;
+        int option, digit;
+        cin >> choice;
+        try
+        {
+            option = stoi(choice);
+        }
+        catch (const invalid_argument)
+        {
+            if (choice == "Exit" || choice == "exit")
+            {
+                exit = true;
+                return;
+            }
+            else
+            {
+                cerr << "Invalid input" << endl;
+            }
+        }
+        switch (option)
+        {
+        case 0:
+            exit = true;
+            break;
+        case 1:
+            cout << "Enter new ID digit: ";
+            int year;
+            cin >> input;
+            try
+            {
+                digit = stoi(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input" << endl;
+                break;
+            }
+            if (digit <= 100 || digit >= 999)
+            {
+                cerr << "Digit must be a continous three digit" << endl;
+                break;
+            }
+            cout << "Enter year published: ";
+            cin >> input;
+            try
+            {
+                year = stoi(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input" << endl;
+                break;
+            }
+            input = 'I' + digit + '-' + year;
+            items->setId(input);
+            break;
+        case 2:
+            cout << "Enter new title: ";
+            cin >> input;
+            items->setId(input);
+            break;
+        case 3:
+            cout << "Enter loan type: ";
+            cin >> input;
+            items->setLoanType(input);
+            break;
+        case 4:
+            cout << "Enter amount in stock: ";
+            cin >> input;
+            try
+            {
+                digit = stoi(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input" << endl;
+                break;
+            }
+            items->setStock(digit);
+            break;
+        case 5:
+            cout << "Enter rental fee: " << endl;
+            cin >> input;
+            try
+            {
+                fee = stof(input);
+            }
+            catch (const invalid_argument)
+            {
+                cerr << "Invalid input" << endl;
+                break;
+            }
+            break;
+            items->setRentalFee(fee);
+        default:
+            cerr << "Incorrect Use";
+            break;
+        }
+    }
+}
+
 void deleteItem(vector<Item *> items)
 {
     string itemId;
@@ -87,7 +201,8 @@ void addItem(vector<Item *> items)
     int stock;
     int type;
     string genre;
-    cout << "Enter Title: " << endl;
+    cin.ignore(1, '\n');
+    cout << "Enter Title: ";
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
     cin >> digit;
