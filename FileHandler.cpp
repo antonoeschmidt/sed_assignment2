@@ -104,22 +104,24 @@ vector<Customer *> FileHandler::readCustomerFile() // function read customer fil
 				customerVector.push_back(substr);
 			}
 
-			int subStrLength = customerVector[5].length() - 1; //This handles unwanted whitespace in Type of Customer
-
-			if (customerVector[5].substr(0, subStrLength) == "Guest")
+			// int subStrLength = customerVector[5].length() - 1; //This handles unwanted whitespace in Type of Customer
+			cout << customerVector[5] << endl;
+			if (customerVector[5] == "Guest")
 			{
 				Guest *guest = new Guest(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(guest);
 			}
-			else if (customerVector[5].substr(0, subStrLength) == "Regular")
+			else if (customerVector[5]/*.substr(0, subStrLength)*/ == "Regular")
 			{
 				Regular *regular = new Regular(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(regular);
 			}
-			else if (customerVector[5].substr(0, subStrLength) == "VIP")
+			else if (customerVector[5] == "VIP")
 			{
 				VIP *vip = new VIP(customerVector[0], customerVector[1], customerVector[2], customerVector[3]);
 				customers.push_back(vip);
+			} else {
+				cout << "No type found. Error." << endl;
 			}
 		}
 	}
@@ -144,11 +146,11 @@ bool FileHandler::isItemFile()
 	}
 }
 
-vector<Item*> FileHandler::readItemsFile()
+vector<Item *> FileHandler::readItemsFile()
 {
 	string line;
 	vector<string> strBuff;
-	vector<Item*> items;
+	vector<Item *> items;
 	FileHandler fileHandler;
 
 	if (!fileHandler.isItemFile())
@@ -188,8 +190,6 @@ vector<Item*> FileHandler::readItemsFile()
 			}
 
 			string type = itemVector[2];
-			cout << type << endl;
-			cout << type.length() << endl;
 			if (itemVector[2] == "Game")
 			{
 				VideoGames *videoGame = new VideoGames(itemVector[0], itemVector[1], itemVector[3], stoi(itemVector[4]), stof(itemVector[5]));
@@ -210,7 +210,7 @@ vector<Item*> FileHandler::readItemsFile()
 	return items;
 }
 
-bool FileHandler::writeItemsFile(vector<Item*> items)
+bool FileHandler::writeItemsFile(vector<Item *> items)
 {
 	ofstream f;
 	f.open("items.txt");

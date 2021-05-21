@@ -71,7 +71,6 @@ string DVD::toText()
     string rentalFee = to_string(this->getRentalFee());
     int size = rentalFee.size();
     rentalFee = rentalFee.substr(0, size - 4);
-    cout << rentalFee << endl;
     return this->getId() + "," + this->getTitle() + ",DVD," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee + "," + this->getGenre();
 }
 
@@ -91,7 +90,6 @@ string Record::toText()
     string rentalFee = to_string(this->getRentalFee());
     int size = rentalFee.size();
     rentalFee = rentalFee.substr(0, size - 4);
-    cout << rentalFee << endl;
     return this->getId() + "," + this->getTitle() + ",Record," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee + "," + this->getGenre();
 }
 
@@ -107,6 +105,5 @@ string VideoGames::toText()
     string rentalFee = to_string(this->getRentalFee());
     int size = rentalFee.size();
     rentalFee = rentalFee.substr(0, size - 4);
-    cout << rentalFee << endl;
     return this->getId() + "," + this->getTitle() + ",Game," + this->getLoanType() + "," + to_string(this->getStock()) + "," + rentalFee;
 }
