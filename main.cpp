@@ -84,7 +84,8 @@ void displayCustomer(vector<Customer *> customers)
         cout << "ID: " << i->getId() << " | "
              << "Name: " << i->getName() << " | "
              << "Address: " << i->getAddress() << " | "
-             << "Phone Number: " << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+             << "Phone Number: " << i->getPhone() << " | "
+             << "Account Type: " << i->getcustomerType() << endl;
         vector<string> items = i->getItems();
         if (items.size() > 0)
         {
@@ -107,7 +108,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -127,7 +129,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -147,7 +150,8 @@ void displayCustomerGroup(vector<Customer *> customers)
             cout << "ID: " << i->getId() << " | "
                  << "Name:" << i->getName() << " | "
                  << "Address:" << i->getAddress() << " | "
-                 << "Phone Number:" << i->getPhone() << " | " << "Account Type: " << i->getcustomerType() << endl;
+                 << "Phone Number:" << i->getPhone() << " | "
+                 << "Account Type: " << i->getcustomerType() << endl;
             vector<string> items = i->getItems();
             if (items.size() > 0)
             {
@@ -395,7 +399,7 @@ void addItem(vector<Item *> items)
     }
 }
 
-void addCustomer(vector<Customer *> Customers)
+void addCustomer(vector<Customer *> customers)
 {
     enum CustomerType
     {
@@ -436,8 +440,8 @@ void addCustomer(vector<Customer *> Customers)
         //cout << "Enter  ";
         //    cin >> genre;
         VIP *vip = new VIP(id, name, address, phone);
-        Customers.push_back(vip);
-        fileHandler.writeCustomersFile(Customers);
+        customers.push_back(vip);
+        fileHandler.writeCustomersFile(customers);
         delete vip;
     }
     if (type == REG)
@@ -445,19 +449,19 @@ void addCustomer(vector<Customer *> Customers)
         //    cout << "Enter genre: ";
         //    cin >> genre;
         Regular *reg = new Regular(id, name, address, phone);
-        Customers.push_back(reg);
-        fileHandler.writeCustomersFile(Customers);
+        customers.push_back(reg);
+        fileHandler.writeCustomersFile(customers);
         delete reg;
     }
     if (type == GUE)
     {
         Guest *guest = new Guest(id, name, address, phone);
-        Customers.push_back(guest);
-        fileHandler.writeCustomersFile(Customers);
+        customers.push_back(guest);
+        fileHandler.writeCustomersFile(customers);
         delete guest;
     }
 
-    fileHandler.writeCustomersFile(Customers);
+    //fileHandler.writeCustomersFile(customers);
 }
 
 void Menu()
@@ -531,34 +535,42 @@ bool handleItem()
 
 bool handleCustomer()
 {
-    cout << "Choose action:" << endl
-         << "(1) Add" << endl
-         << "(2) Update" << endl
-         << "(0) Back to menu" << endl;
-    string a;
-    int tmp;
-    cin >> a;
-    try
+    bool exit = false;
+    vector<Customer *> customers;
+    while (!exit)
     {
-        tmp = stoi(a);
-    }
-    catch (const invalid_argument)
-    {
-        cerr << "Invalid input";
-        return false;
-    }
-    if (tmp >= 0 && tmp <= 3)
-    {
-        switch (tmp)
+        customers = fileHandler.readCustomerFile(customerFile);
+        cout << "Choose action:" << endl
+             << "(1) Add" << endl
+             << "(2) Update" << endl
+             << "(0) Back to menu" << endl;
+        string a;
+        int tmp;
+        cin >> a;
+        try
         {
-        case 0:
-            return true;
-            break;
-        case 1:
-            // addItem();
-            break;
-        case 2:
-            break;
+            tmp = stoi(a);
+        }
+        catch (const invalid_argument)
+        {
+            cerr << "Invalid input";
+            return false;
+        }
+        if (tmp >= 0 && tmp <= 3)
+        {
+            switch (tmp)
+            {
+            case 0:
+                exit = true;
+                return true;
+                break;
+            case 1:
+                addCustomer(customers);
+                // addItem();
+                break;
+            case 2:
+                break;
+            }
         }
     }
     return false;
@@ -608,10 +620,10 @@ void returnItem()
 
         for (int i = 0; i < customerItems.size(); i++)
         {
-            if (customerItems[i].substr(0,9) == itemId.substr(0,9))
+            if (customerItems[i].substr(0, 9) == itemId.substr(0, 9))
             {
                 found = true;
-                customer->returnItem(itemId.substr(0,9));
+                customer->returnItem(itemId.substr(0, 9));
                 for (int i = 0; i < items.size(); i++)
                 {
                     if (items[i]->getId() == itemId)
