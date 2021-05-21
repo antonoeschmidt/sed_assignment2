@@ -24,10 +24,11 @@ bool FileHandler::isCustomerFile() // function to check for the customer file
 	}
 }
 
-bool FileHandler::writeCustomersFile(vector<Customer *> customers) // write to customers text file
+bool FileHandler::writeCustomersFile(vector<Customer *> customers, string customerFile) // write to customers text file
 {
 	ofstream f;
-	f.open("customers.txt");
+	// f.open("customers.txt");
+	f.open(customerFile);
 
 	for (int i = 0; i < customers.size(); i++)
 	{
@@ -204,10 +205,11 @@ vector<Item *> FileHandler::readItemsFile(string itemFile)
 	return items;
 }
 
-bool FileHandler::writeItemsFile(vector<Item *> items)
+bool FileHandler::writeItemsFile(vector<Item *> items, string itemFile)
 {
 	ofstream f;
-	f.open("items.txt");
+	// f.open("items.txt");
+	f.open(itemFile);
 
 	for (int i = 0; i < items.size(); i++)
 	{

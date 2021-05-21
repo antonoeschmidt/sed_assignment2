@@ -17,11 +17,11 @@ public:
 	FileHandler();
 	~FileHandler();
 	bool isCustomerFile(); // check and write to customer list text file
-	bool writeCustomersFile(vector<Customer *> customers);
+	bool writeCustomersFile(vector<Customer *> customers, string customerFile);
 	vector<Customer *> readCustomerFile(string customerFile);
 	bool isItemFile(); // check if item text file exist
 	vector<Item*> readItemsFile(string itemFile);
-	bool writeItemsFile(vector<Item*> items);
+	bool writeItemsFile(vector<Item*> items, string itemFile);
 
 private:
 	// declare variable
