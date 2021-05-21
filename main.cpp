@@ -211,20 +211,21 @@ int main(int argc, char *argv[])
     vector<Item *> items;
     vector<Customer *> customers;
 
-    // customers = fileHandler.readCustomerFile();
-    // for (int i = 0; i < customers.size(); i++)
-    // {
-    //     cout << customers[i]->getName() << endl;
-    // }
+    customers = fileHandler.readCustomerFile();
+    for (int i = 0; i < customers.size(); i++)
+    {
+        cout << customers[i]->getName() << endl;
+    }
 
     items = fileHandler.readItemsFile();
     for (int i = 0; i < items.size(); i++)
     {
         cout << items[i]->getRentalFee() << endl;
     }
+   
     //UI
     // input();
-    addItem(items);
+    // addItem(items);
     // fileHandler.writeItemsFile(items);
 
     return 0;
