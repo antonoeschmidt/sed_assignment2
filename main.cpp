@@ -28,6 +28,27 @@ void displayItem(vector<Item *> items)
     cout << "-----------------------------" << endl;
 }
 
+void displayCustomer(vector<Customer *> customers)
+{
+    cout << "----------Customer List----------" << endl;
+    for (auto &i : customers)
+    {
+        cout << "ID: " << i->getId() << " | "
+             << "Name:" << i->getName() << " | "
+             << "Address:" << i->getAddress() << " | "
+             << "Phone Number:" << i->getPhone();
+        vector<string> items = i->getItems();
+		if (items.size() > 0)
+		{
+			for (int j = 0; j < items.size(); j++)
+			{
+				cout << items[j] << endl;
+			}
+		}
+    }   
+    cout << "-----------------------------" << endl;
+}
+
 void deleteItem(vector<Item *> items)
 {
     cout << "Items:" << endl;
@@ -242,16 +263,10 @@ int main(int argc, char *argv[])
     vector<Customer *> customers;
 
     customers = fileHandler.readCustomerFile();
-    for (int i = 0; i < customers.size(); i++)
-    {
-        cout << customers[i]->getName() << endl;
-    }
+    displayCustomer(customers);
 
     items = fileHandler.readItemsFile();
-    for (int i = 0; i < items.size(); i++)
-    {
-        cout << items[i]->getRentalFee() << endl;
-    }
+    displayItem(items);
 
     //UI
 
