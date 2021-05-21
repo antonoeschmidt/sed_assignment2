@@ -18,9 +18,9 @@ public:
 	~FileHandler();
 	bool isCustomerFile(); // check and write to customer list text file
 	bool writeCustomersFile(vector<Customer *> customers);
-	vector<Customer *> readCustomerFile();
+	vector<Customer *> readCustomerFile(string customerFile);
 	bool isItemFile(); // check if item text file exist
-	vector<Item*> readItemsFile();
+	vector<Item*> readItemsFile(string itemFile);
 	bool writeItemsFile(vector<Item*> items);
 
 private:
