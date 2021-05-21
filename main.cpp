@@ -50,6 +50,55 @@ void displayCustomer(vector<Customer *> customers)
     cout << "-----------------------------" << endl;
 }
 
+void updateItem(Item* item, vector<Item *> itemslist)
+{
+    while (!exit)
+    {
+        cout << "Select aspect to change:" << endl;
+        cout << "1. ID: " << endl;
+        cout << "2. Title << endl;
+        cout << "3. Promote an existing customer" << endl;
+        cout << "4. Rent an item" << endl;
+        cout << "5. Return an item" << endl;
+        cout << "6. Display all items" << endl;
+        cout << "7. Display out-of-stock items" << endl;
+        cout << "8. Display all customers" << endl;
+        string choice;
+        int option;
+        cin >> choice;
+        try
+        {
+            option = stoi(choice);
+        }
+        catch (const invalid_argument)
+        {
+            if (choice == "Exit" || choice == "exit")
+            {
+                //Exit function here
+                return;
+            }
+            else
+            {
+                cerr << "Invalid input";
+            }
+        }
+        switch (option)
+        {
+        case 0:
+            exit = true;
+            break;
+        case 1:
+            handleItem(items);
+            break;
+        case 2:
+            break;
+        default:
+            cerr << "Incorrect Use";
+            break;
+        }
+    }
+}
+
 void deleteItem(vector<Item *> items)
 {
     cout << "Items:" << endl;
