@@ -52,8 +52,21 @@ void displayCustomer(vector<Customer *> customers)
 
 void deleteItem(vector<Item *> items)
 {
+    string itemId;
     cout << "Items:" << endl;
     displayItem(items);
+    cout << "Enter ID of Item that should be deleted:" << endl;
+    cin >> itemId;
+
+    for (int i = 0; i < items.size(); i++)
+    {
+        if (items[i]->getId() == itemId)
+        {
+            cout << "found you" << endl;
+            items.erase(items.begin() + i);
+        }
+    }
+    fileHandler.writeItemsFile(items);
 }
 
 void addItem(vector<Item *> items)
@@ -136,11 +149,13 @@ void Menu()
     cout << "0. Exit" << endl;
 }
 
-bool handleItem(vector<Item *> items)
+bool handleItem()
 {
+    vector<Item *> items;
     bool exit = false;
     while (!exit)
     {
+        items = fileHandler.readItemsFile();
 
         cout << "Choose action:" << endl
              << "(1) Add" << endl
@@ -210,7 +225,7 @@ bool handleCustomer()
     return false;
 }
 
-void input(vector<Item *> items)
+void input()
 {
     bool exit = false;
     while (!exit)
@@ -242,7 +257,7 @@ void input(vector<Item *> items)
             exit = true;
             break;
         case 1:
-            handleItem(items);
+            handleItem();
             break;
         case 2:
             break;
@@ -271,18 +286,18 @@ int main(int argc, char *argv[])
     }
 
     // FileHandler fileHandler;
-    vector<Item *> items;
-    vector<Customer *> customers;
+    // vector<Item *> items;
+    // vector<Customer *> customers;
 
-    customers = fileHandler.readCustomerFile();
-    displayCustomer(customers);
+    // customers = fileHandler.readCustomerFile();
+    // displayCustomer(customers);
 
-    items = fileHandler.readItemsFile();
-    displayItem(items);
+    // items = fileHandler.readItemsFile();
+    // displayItem(items);
 
-    //UI
-    items = fileHandler.readItemsFile();
-    input(items);
+    // //UI
+    // items = fileHandler.readItemsFile();
+    input();
 
     return 0;
 }
