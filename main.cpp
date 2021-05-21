@@ -264,7 +264,7 @@ void updateCustomer(Customer *customer, vector<Customer *> customers){
                 cerr << "ID must be 3-digit" << endl;
                 break;
             }
-            customer->setId(input);
+            customer->setId("C" + input);
             fileHandler.writeCustomersFile(customers, customerFile);
             break;
         case 2:
