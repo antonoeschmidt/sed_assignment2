@@ -166,8 +166,21 @@ void updateItem(Item *items)
 
 void deleteItem(vector<Item *> items)
 {
+    string itemId;
     cout << "Items:" << endl;
     displayItem(items);
+    cout << "Enter ID of Item that should be deleted:" << endl;
+    cin >> itemId;
+
+    for (int i = 0; i < items.size(); i++)
+    {
+        if (items[i]->getId() == itemId)
+        {
+            cout << "found you" << endl;
+            items.erase(items.begin() + i);
+        }
+    }
+    fileHandler.writeItemsFile(items);
 }
 
 void addItem(vector<Item *> items)
@@ -234,6 +247,73 @@ void addItem(vector<Item *> items)
     }
 }
 
+void deleteItem(vector<Item *> items)
+{
+}
+
+
+
+void addCustomer(vector<Customer *> Customers)
+{
+    enum CustomerType
+    {
+        VI = 1,
+        REG = 2,
+        GUE = 3
+    };
+    string id;
+    string name;
+    string address;
+    string phone;
+    int noOfReturn;
+    bool guest;
+    int type;
+    cout << "Enter Id: " << endl;
+    cin >> id;
+    cout << "Enter Name: " << endl;
+    cin >> name;
+    cout << "Enter the address: " << endl;
+    cin >> address;
+    cout << "Enter Phone number " << endl;
+    cin >> phone;
+    cout << "Number of Returns " << endl;
+    cin >> noOfReturn;
+
+    cout << "Select Customer Type: " << endl
+         << "(1) VIP" << endl
+         << "(2) Regular" << endl
+         << "(3) Guest" << endl;
+    cin >> type;
+    if (type == VI)
+    {
+    //cout << "Enter  ";
+    //    cin >> genre;
+        VIP *vip = new VIP(id, name, address, phone);
+        Customers.push_back(vip);
+        fileHandler.writeCustomersFile(Customers);
+        delete vip;
+    }
+    if (type == REG)
+    {
+    //    cout << "Enter genre: ";
+    //    cin >> genre;
+    Regular *reg = new Regular(id, name, address, phone);
+        Customers.push_back(reg);
+        fileHandler.writeCustomersFile(Customers);
+        delete reg;
+    }
+    if (type == GUE)
+    {
+    Guest *guest = new Guest(id, name, address, phone);
+        Customers.push_back(guest);
+        fileHandler.writeCustomersFile(Customers);
+        delete guest;
+    }
+    
+    
+    fileHandler.writeCustomersFile(Customers);
+}
+
 void Menu()
 {
     cout << "Welcome to Oggy's video store" << endl;
@@ -251,11 +331,13 @@ void Menu()
     cout << "0. Exit" << endl;
 }
 
-bool handleItem(vector<Item *> items)
+bool handleItem()
 {
+    vector<Item *> items;
     bool exit = false;
     while (!exit)
     {
+        items = fileHandler.readItemsFile();
 
         cout << "Choose action:" << endl
              << "(1) Add" << endl
@@ -325,7 +407,7 @@ bool handleCustomer()
     return false;
 }
 
-void input(vector<Item *> items)
+void input()
 {
     bool exit = false;
     while (!exit)
@@ -357,7 +439,7 @@ void input(vector<Item *> items)
             exit = true;
             break;
         case 1:
-            handleItem(items);
+            handleItem();
             break;
         case 2:
             break;
@@ -386,18 +468,18 @@ int main(int argc, char *argv[])
     }
 
     // FileHandler fileHandler;
-    vector<Item *> items;
-    vector<Customer *> customers;
+    // vector<Item *> items;
+    // vector<Customer *> customers;
 
-    customers = fileHandler.readCustomerFile();
-    displayCustomer(customers);
+    // customers = fileHandler.readCustomerFile();
+    // displayCustomer(customers);
 
-    items = fileHandler.readItemsFile();
-    displayItem(items);
+    // items = fileHandler.readItemsFile();
+    // displayItem(items);
 
-    //UI
-    items = fileHandler.readItemsFile();
-    input(items);
+    // //UI
+    // items = fileHandler.readItemsFile();
+    input();
 
     return 0;
 }
