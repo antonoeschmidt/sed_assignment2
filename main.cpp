@@ -12,6 +12,11 @@ using namespace std;
 
 FileHandler fileHandler;
 
+void deleteItem(vector<Item*> items) {
+    cout << "Items:" << endl;
+
+}
+
 void addItem(vector<Item *> items)
 {
     enum ItemType
@@ -113,7 +118,8 @@ bool handleItem(vector<Item *> items)
             return true;
         case 1:
             addItem(items);
-        case 2:;
+        case 2:
+            deleteItem(items);
         case 3:;
         }
     }
@@ -152,7 +158,7 @@ bool handleCustomer()
     return false;
 }
 
-void input()
+void input(vector <Item*> items)
 {
     Menu();
     string choice;
@@ -177,13 +183,7 @@ void input()
     switch (option)
     {
     case 1:
-        bool tmp;
-        do
-        {
-            tmp = handleItem();
-        } while (tmp != true);
-        input();
-        break;
+        handleItem(items);
     case 2:;
     default:
         cerr << "Incorrect Use";
@@ -223,8 +223,9 @@ int main(int argc, char *argv[])
         cout << items[i]->getRentalFee() << endl;
     }
     //UI
-    // input();
-    addItem(items);
+    input(items);
+    // addItem(items);
+
     // fileHandler.writeItemsFile(items);
 
     return 0;
