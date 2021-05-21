@@ -226,7 +226,7 @@ void addItem(vector<Item *> items)
     bool borrowed = false;
     float fee;
     int stock, type;
-    cin.ignore(1, '\n')
+    cin.ignore(1, '\n');
     cout << "Enter Title: " << endl;
     getline(cin, title);
     cout << "Enter Item 3-digit code: " << endl;
