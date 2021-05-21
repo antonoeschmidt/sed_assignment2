@@ -305,6 +305,14 @@ void addCustomer(vector<Customer *> Customers)
          << "(2) Regular" << endl
          << "(3) Guest" << endl;
     cin >> type;
+    while(type != VI && type != REG && type != GUE){
+        cerr << "Incorrect Customer Type" << endl;
+        cout << "Select Customer Type: " << endl
+         << "(1) VIP" << endl
+         << "(2) Regular" << endl
+         << "(3) Guest" << endl;
+        cin >> type;        
+    }
     if (type == VI)
     {
     //cout << "Enter  ";
